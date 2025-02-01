@@ -58,7 +58,9 @@ LRandomのLはLimitedが長くて不便なので短くしたものです
 
 gemini便利すぎる
 
-欲しい機能などありましたら(https://osu.ppy.sh/users/23064382)までお気軽にご連絡ください！！
+欲しい機能などありましたら
+https://osu.ppy.sh/users/23064382
+までお気軽にご連絡ください！！
 
 
 
