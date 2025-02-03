@@ -1,5 +1,4 @@
-
-osu!taiko LRandom v2.1 readme
+osu!taiko LRandom v2.2 readme
 
 
 
@@ -53,7 +52,7 @@ LRandomのLはLimitedが長くて不便なので短くしたものです
 
 ～今後の予定～
 
-自動で選曲画面から譜面認識するようにしたい
+自動で選曲画面から譜面認識するようにしたいけどOsuMemoryDataProviderがうまく機能しない;;
 
 多言語対応したい
 
