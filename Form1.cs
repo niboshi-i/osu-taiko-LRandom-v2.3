@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Configuration;
-using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
-using static System.Net.Mime.MediaTypeNames;
-using System.Runtime.CompilerServices;
-using System.Diagnostics.Eventing.Reader;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Diagnostics;
-using System.Linq.Expressions;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 
 namespace taiko
@@ -162,7 +154,9 @@ namespace taiko
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
+
             label8.Text = "動作中、、、";
+
 
             // 入力されたデータの文字列の後ろ部分が空白や改行だった場合それを削除して、string型の配列にする
             List<string> lines = new List<string>(textBox1.Lines);
@@ -179,17 +173,16 @@ namespace taiko
                 }
             }
 
-            string[] result = lines.ToArray(); // resultは1次元配列
+            string[] result = lines.ToArray();
 
 
             // テキストボックスにデータが入っていなければメッセージボックスを出してプログラムを終了
             if (result.Length == 0)
             {
-                
-                DialogResult dialogResult = MessageBox.Show("譜面が選択されていません><","",
-                  MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
+                DialogResult dialogResult = MessageBox.Show("譜面が選択されていません><", "",
+                  MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 label8.Text = "";
-                
+
                 return;
             }
 
@@ -206,8 +199,18 @@ namespace taiko
             int part2 = 1;
             if (!string.IsNullOrEmpty(parts[1]))
             {
-                int num = int.Parse(parts[1]); // 変数名を num に変更
-                part2 = num; // 外側の part2 に値を代入
+                try
+                {
+                    int num = int.Parse(parts[1]); // 変数名を num に変更
+                    part2 = num; // 外側の part2 に値を代入
+                }
+                catch
+                {
+                    DialogResult dialogResult = MessageBox.Show("後ろの付く数字は半角数字で入力してください><", "",
+                      MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    label8.Text = "";
+                    return;
+                }
             }
 
 
@@ -262,15 +265,60 @@ namespace taiko
                 Creatorname == null || crenum == -1 || diffname0 == null || vernum == -1)
             {
                 DialogResult dialogResult = MessageBox.Show("譜面のデータに不備があるかもしれません><", "",
-                                                            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                  MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 label8.Text = "";
                 return;
             }
+
+
+            // 難易度名にすでに[Random]か[LRandom]があれば削除する
+            string diffreg = @"(.*)\[?Random\]?\(\d+\)";
+            string diffreg2 = @"(.*)\[?LRandom\[[^\]]*\]\]?\(\d+\)";
+            diffname0 = Regex.Replace(diffname0, diffreg, "$1");
+            diffname0 = Regex.Replace(diffname0, diffreg2, "$1");
+
+            bool nodiffname = false;
+            if (diffname0 == "")
+            {
+               nodiffname = true;
+            }
+            if (checkBox2.Checked)
+            {
+                nodiffname = true;
+            }
+
+
 
             // 難易度、タイトル、アーティスト名に含まれるパスに使えない文字を削除する
             string Artistname = Regex.Replace(Artistname0, @"[\\\/><?:*|""]+", "");
             string Titlename = Regex.Replace(Titlename0, @"[\\\/><?:*|""]+", "");
             string diffname = Regex.Replace(diffname0, @"[\\\/><?:*|""]+", "");
+
+
+
+            // 同じ譜面ですでに生成された譜面があれば、後ろの番号を取得する
+            string escArtistname = Regex.Escape(Artistname);
+            string escTitlename = Regex.Escape(Titlename);
+            string escCreatorname = Regex.Escape(Creatorname);
+            string escdiffname = Regex.Escape(diffname);
+            string escpart1 = Regex.Escape(part1);
+
+            string pattern = nodiffname ? $@"{escArtistname} - {escTitlename} \({escCreatorname}\) \[{escpart1}\((\d+)\)\]\.osu$"
+                                               : $@"{escArtistname} - {escTitlename} \({escCreatorname}\) \[{escdiffname}\[{escpart1}\]\((\d+)\)\]\.osu$";
+
+            List<string> numbers = new List<string>(); // 数字を格納するリスト
+
+            Directory.GetFiles(box2)
+                .ToList() // GetFilesの結果をToList()で評価
+                .ForEach(fileName =>
+                { // ForEachで各ファイル名を処理
+                    Match match = Regex.Match(Path.GetFileName(fileName), pattern, RegexOptions.IgnoreCase);
+                    if (match.Success)
+                    {
+                        string number = match.Groups[1].Value; // 1番目のグループ (数字部分) を取得
+                        numbers.Add(number); // 数字をリストに追加
+                    }
+                });
 
 
 
@@ -287,7 +335,7 @@ namespace taiko
             catch (FormatException) // 入力が正しくない場合
             {
                 DialogResult dialogResult = MessageBox.Show("回数は半角数字で入力してください><","",
-                                                            MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
+                  MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 label8.Text = "";
                 return;
             }
@@ -295,7 +343,7 @@ namespace taiko
             if (time >99) // 作る数が100以上ならメッセージを出す
             {
                 DialogResult dialogResult = MessageBox.Show("譜面を100個以上生成しようとしています :O\n本当に実行しますか？","",
-                                                            MessageBoxButtons.OKCancel,MessageBoxIcon.Asterisk);
+                  MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
 
                 if(dialogResult == DialogResult.Cancel)
                 {
@@ -303,58 +351,85 @@ namespace taiko
                     return;
                 }
             }
-            
 
+
+            // 生成する譜面の後ろにつける番号をあらかじめ作る
+            List<int> intList = numbers.Select(int.Parse).ToList();
+
+            List<int> newnum = new List<int>();
+
+            int current = part2;
+
+            while (newnum.Count < time)
+            {
+                if (!intList.Contains(current))
+                {
+                    newnum.Add(current);
+                }
+                current++;
+            }
+
+
+          
+            //Console.WriteLine($"繰り返し処理に入る前までの経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
+
+
+
+            // 個数分作るのを繰り返す
             for (int k = 0; k < time; k++)
             {
                 // 難易度部分を作成
 
-                string word = "a";
+                string word;
+                string word2;
+
+
                 if (checkBox1.Checked) // 同名の難易度がある場合上書きする場合
                 {
                     // 元の難易度を残さない場合、残す場合
-                    word = checkBox2.Checked ? $"{part1}({k + part2})" : $"{diffname}[{part1}]({k + part2})";
+                    word = nodiffname ? $"{part1}({k + part2})" : $"{diffname0}[{part1}]({k + part2})";
+                    word2 = nodiffname ? $"{part1}({k + part2})" : $"{diffname}[{part1}]({k + part2})";
                 }
                 else // 上書きしない場合
                 {
-                    string beforPath = box2;
-                    int count = 0;
-                    string filePath;
-
-                    // 元の難易度を残さない場合、残す場合、のファイルパス
-                    filePath = checkBox2.Checked ? $"{beforPath}\\{Artistname} - {Titlename} ({Creatorname}) [{part1}({k + part2 + count})].osu"
-                                             : $"{beforPath}\\{Artistname} - {Titlename} ({Creatorname}) [{diffname}[{part1}]({k + part2 + count})].osu";
-
-                    //　既存のファイルがなくなるまで数字部分に+1
-                    while (File.Exists(filePath))
-                    {
-                        count++;
-                        filePath = checkBox2.Checked ? $"{beforPath}\\{Artistname} - {Titlename} ({Creatorname}) [{part1}({k + part2 + count})].osu"
-                                                 : $"{beforPath}\\{Artistname} - {Titlename} ({Creatorname}) [{diffname}[{part1}]({k + part2 + count})].osu";
-                    }
-
-                    word = checkBox2.Checked ? $"{part1}({k + part2 + count})" : $"{diffname}[{part1}]({k + part2 + count})";
+                    // 元の難易度を残さない場合、残す場合
+                    word = nodiffname ? $"{part1}({newnum[k]})" : $"{diffname0}[{part1}]({newnum[k]})";
+                    word2 = nodiffname ? $"{part1}({newnum[k]})" : $"{diffname}[{part1}]({newnum[k]})";
                 }
 
                 // 全体の配列の難易度部分を書き換える
                 result[vernum] = $"Version:{word}";
 
 
+                // ノーツだけの1次元配列
+                string[] noteonly = result.Skip(hitnum).ToArray();
 
-                string[] noteonly = result.Skip(hitnum).ToArray(); // ノーツだけの1次元配列
 
-
-                List<int> big = new List<int>(); // bigノーツの行番号取得
+                // bigノーツの行番号取得
+                List<int> big = new List<int>();
 
                 for (int i = 0; i < noteonly.Length; i++)
                 {
                     string[] big2 = noteonly[i].Split(',');
 
-                    if (big2[4] == "4" || big2[4] == "6")
+                    try
                     {
-                        big.Add(i);
+                        if (big2[4] == "4" || big2[4] == "6")
+                        {
+                            big.Add(i);
+                        }
+                    }
+                    catch
+                    {
+                        DialogResult dialogResult = MessageBox.Show($"[HitObject]の\"{i + 1}\"行目に不備があるかもしれません\nもしくは osu file format のバージョンが対応していないです><", "",
+                          MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        label8.Text = "";
+                        return;
                     }
                 }
+
+
+                //Console.WriteLine($"ノーツを生成する処理に入る前までの経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
 
 
                 List<string> randomafter = new List<string>();
@@ -362,23 +437,29 @@ namespace taiko
 
                 if (radioButtonR.Checked) // でたらめの場合
                 {
-                    Random random = new Random();
-                    randomafter.AddRange(noteonly.Select(line =>
+                    using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
                     {
-                        string[] parts2 = line.Split(',');
-                        parts2[4] = (random.Next(0, 2) * 2).ToString(); // 0 か 2 をランダムに生成
-                        return string.Join(",", parts2);
-                    }));
+                        randomafter.AddRange(noteonly.Select(line =>
+                        {
+                            string[] parts2 = line.Split(',');
+
+                            byte[] randomNumber = new byte[1];
+                            rng.GetBytes(randomNumber);
+                            parts2[4] = ((randomNumber[0] % 2) * 2).ToString(); // 0 か 2 を生成
+
+                            return string.Join(",", parts2);
+                        }));
+                    }
                 }
                 else // 制限付きでたらめの場合
                 {
                     // 制限のルールを取得
                     List<string> randomrule = new List<string>(textBoxRule.Lines);
-                    
+
                     if (randomrule.Count == 0) // ルールが入力されていなければエラーで終わり
                     {
-                        DialogResult dialogResult = MessageBox.Show("ルールを入力してください><","",
-                                                                    MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
+                        DialogResult dialogResult = MessageBox.Show("ルールを入力してください><", "",
+                          MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         label8.Text = "";
                         return;
                     }
@@ -386,25 +467,37 @@ namespace taiko
                     string[] splrule = randomrule[0].Split(',');
 
 
-                    // ルールの数字でランダムにノーツの数分の長さの１次元配列を作る
-                    Random random = new Random();
-
                     try
                     {
-                        List<string> box = Enumerable.Range(0, noteonly.Length)
-                         .Select(_ => splrule[(int)Math.Floor(2 * random.NextDouble())].ToString())
-                         .ToList();
+                        // ルールの数字でランダムにノーツの数分の長さの１次元配列を作る  
+                        List<string> box = new List<string>();
+                        using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+                        {
+                            byte[] bytes = new byte[4]; // int は 4 バイト
+
+                            for (int i = 0; i < noteonly.Length; i++)
+                            {
+                                rng.GetBytes(bytes);
+                                int index = Math.Abs(BitConverter.ToInt32(bytes, 0)) % splrule.Length;
+                                box.Add(splrule[index]);
+                            }
+                        }
 
 
-                        int[] box2 = box.Select(int.Parse).ToArray();
+                        // 奇数かたまり目の色と偶数かたまり目の色を決める
+                        string color1;
+                        string color2;
 
-                        string color1 = (random.Next(0, 2) * 2).ToString();
-                        string color2 = (color1 == "0" ? "2" : "0");
+                        using (RandomNumberGenerator rngColor = RandomNumberGenerator.Create())
+                        {
+                            byte[] randomNumberColor = new byte[1];
+                            rngColor.GetBytes(randomNumberColor);
+                            color1 = ((randomNumberColor[0] % 2) * 2).ToString();
+                            color2 = (color1 == "0" ? "2" : "0");
+                        }
 
-
-
-                        int start = 0; // startはint型で管理
-                        for (int j = 0; j < box2.Length; j++)
+                        int start = 0;
+                        for (int j = 0; j < box.Count; j++)
                         {
                             if (start >= noteonly.Length) break;
 
@@ -415,6 +508,7 @@ namespace taiko
                                 if (start >= noteonly.Length) break;
 
                                 List<string> val03 = new List<string>(noteonly[start].Split(','));
+
                                 val03[4] = color;
                                 randomafter.Add(string.Join(",", val03));
 
@@ -424,14 +518,15 @@ namespace taiko
                     }
                     catch
                     {
-                        DialogResult dialogResult = MessageBox.Show("ルールを正しく入力してください><", "",
-                                                                   MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        DialogResult dialogResult = MessageBox.Show("ルールを正しく入力してください><\n例)1,2,3", "",
+                          MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         label8.Text = "";
                         return;
                     }
 
                 }
 
+                //Console.WriteLine($"bigノーツにする処理に入る前までの経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
 
                 // bigノーツに変換
                 for (int x = 0; x < big.Count; x++)
@@ -445,6 +540,7 @@ namespace taiko
                 // ノーツより前の部分と完成したノーツ部分を結合して文字列にする
                 string complete = string.Join(Environment.NewLine, result.Take(hitnum).Concat(randomafter));
 
+
                 //最後の場合、中身を表示
                 if (k == time - 1)
                 {
@@ -456,10 +552,10 @@ namespace taiko
                 string Path = box1;
 
                 string Pathcut = Regex.Replace(Path, @"\\(?!.*\\).*", ""); // 最後の'\'までを削除
-                string Pathend = string.Format("\\{0} - {1} ({2}) [{3}].osu", Artistname, Titlename, Creatorname, word);
+                string Pathend = string.Format("\\{0} - {1} ({2}) [{3}].osu", Artistname, Titlename, Creatorname, word2);
                 string newPath = Pathcut + Pathend;
 
-               
+
                 // ファイルを作る
                 try
                 {
@@ -475,37 +571,43 @@ namespace taiko
                     if (newPath.Length > 260)
                     {
                         DialogResult dialogResult = MessageBox.Show("エラー\nパスの長さが260文字より多くなってしまうのが原因かもしれません><", "",
-                                                                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                          MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         label8.Text = "";
                         return;
                     }
                     else
                     {
                         DialogResult dialogResult = MessageBox.Show("エラー", "",
-                                                                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                          MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         label8.Text = "";
                         return;
                     }
                 }
-
+                //Console.WriteLine($"１週終わった時の経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
             }
 
             label8.Text = "完了しました！";
             stopwatch.Stop();
-            Console.WriteLine($"経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
+            Console.WriteLine($"終了時の経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
         }
 
 
 
         private void radioButtonR_Click(object sender, EventArgs e) // でたらめ
         {
-            textBox4.Text = $"[Random]({textBox2.Text})";
+            if (int.TryParse(textBox2.Text, out _)){
+                textBox4.Text = $"[Random]({textBox2.Text})";
+            }
+            textBox4.Text = $"[Random](1)";
         }
 
 
         private void radioButton2_Click(object sender, EventArgs e) // 制限付きでたらめ
         {
-            textBox4.Text = $"[LRandom[{textBoxRule.Text}]]({textBox2.Text})";
+            if (int.TryParse(textBox2.Text, out _)){
+                textBox4.Text = $"[LRandom[{textBoxRule.Text}]]({textBox2.Text})";
+            }
+            textBox4.Text = $"[LRandom[{textBoxRule.Text}]](1)";
         }
 
 
@@ -615,7 +717,7 @@ namespace taiko
                 catch
                 {
                     DialogResult dialogResult = MessageBox.Show("ファイルが無くなっている、もしくは名前が変わっているかもしれません><", "",
-                                                                   MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                      MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     label8.Text = "";
                     return;
                 }
@@ -894,8 +996,7 @@ namespace taiko
                 
             }
         }
+
     }
-
-
 
 }
