@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -16,14 +17,15 @@ namespace taiko
 {
     public partial class Form1 : Form
     {
-
         private string box1;
         private string box2;
+        private string[,] Language;
 
         public Form1()
         {
             InitializeComponent();
         }
+
 
         private void buttonRef_Click(object sender, EventArgs e) // Songsフォルダーの参照
         {
@@ -37,17 +39,7 @@ namespace taiko
                 // ファイルが選択された場合の処理
                 string folderPath = dig.SelectedPath;
 
-                // app.config ファイルを読み込む
-                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-                // key1 の値を設定
-                config.AppSettings.Settings["key1"].Value = folderPath;
-
-                // 変更を保存
-                config.Save(ConfigurationSaveMode.Modified);
-
-                // 設定を反映させるために、ConfigurationManager をリフレッシュ
-                ConfigurationManager.RefreshSection("appSettings");
+                ConfigSave("key1", folderPath);
 
                 textBoxRef.Text = folderPath;
 
@@ -81,9 +73,16 @@ namespace taiko
                 string beforfilePath = filePath.Substring(0, filePath.LastIndexOf('\\'));
                 box2 = beforfilePath;
 
+                // 履歴がオフになっている場合はコンボボックスやデータテーブルに関与しない
+                if (radioButtonhistoryoff.Checked)
+                {
+                    return;
+                }
 
+                // 履歴を取得
                 string log = ConfigurationManager.AppSettings["key2"];
-                // データが初期状態なら新しくデータテーブルを作る
+
+                // 履歴がなければ新しくデータテーブルを作る
                 if (log == "[]")
                 {
                     DataTable dataTable = new DataTable();
@@ -91,15 +90,9 @@ namespace taiko
 
                     dataTable.Rows.Add(new object[] { filePath, fileName });
 
+                    string json = JsonConvert.SerializeObject(dataTable);
 
-                    string json = JsonConvert.SerializeObject(dataTable); // Newtonsoft.Jsonを使用
-
-                    // app.configファイルに保存
-                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    config.AppSettings.Settings["key2"].Value = json;
-                    config.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection("appSettings");
-
+                    ConfigSave("key2", json);
 
                     comboBox1.DataSource = dataTable;
                     comboBox1.DisplayMember = "name";
@@ -108,35 +101,13 @@ namespace taiko
                 }
                 else // 履歴がすでにある場合はデータテーブルに変換してコンボボックスに表示
                 {
-                    JArray jsonArray = JArray.Parse(log);
-                    DataTable dataTable = new DataTable();
-
-                    if (jsonArray.Count > 0)
-                    {
-                        foreach (var property in jsonArray[0].ToObject<Dictionary<string, object>>())
-                        {
-                            dataTable.Columns.Add(property.Key);
-                        }
-                    }
-
-                    foreach (JObject jsonObject in jsonArray)
-                    {
-                        DataRow dataRow = dataTable.NewRow();
-                        foreach (DataColumn column in dataTable.Columns)
-                        {
-                            dataRow[column.ColumnName] = jsonObject[column.ColumnName];
-                        }
-                        dataTable.Rows.Add(dataRow);
-                    }
+                    DataTable dataTable = MakeDataTable(log);
 
                     dataTable.Rows.Add(dataTable.NewRow()["path"] = filePath, dataTable.NewRow()["name"] = fileName); // 1行で追加
 
                     string json = JsonConvert.SerializeObject(dataTable);
 
-                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    config.AppSettings.Settings["key2"].Value = json;
-                    config.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection("appSettings");
+                    ConfigSave("key2", json);
 
                     comboBox1.DataSource = dataTable;
                     comboBox1.DisplayMember = "name";
@@ -217,48 +188,24 @@ namespace taiko
 
             // 各情報と行番号を取得
             int hitnum = -1;
-
             string Titlename0 = null;
             int titlenum = -1;
-
             string Artistname0 = null;
             int artnum = -1;
-
             string Creatorname = null;
             int crenum = -1;
-
             string diffname0 = null;
             int vernum = -1;
-
 
             for (int i = 0; i < result.Length; i++)
             {
                 string line = result[i];
 
-                if (line.Contains("[HitObjects]"))
-                {
-                    hitnum = i + 1;
-                }
-                else if (line.StartsWith("Title:"))
-                {
-                    Titlename0 = line.Substring("Title:".Length).Trim();
-                    titlenum = i;
-                }
-                else if (line.StartsWith("Artist:"))
-                {
-                    Artistname0 = line.Substring("Artist:".Length).Trim();
-                    artnum = i;
-                }
-                else if (line.StartsWith("Creator:"))
-                {
-                    Creatorname = line.Substring("Creator:".Length).Trim();
-                    crenum = i;
-                }
-                else if (line.StartsWith("Version:"))
-                {
-                    diffname0 = line.Substring("Version:".Length).Trim();
-                    vernum = i;
-                }
+                if (line.Contains("[HitObjects]")) hitnum = i + 1;
+                else if (line.StartsWith("Title:")) { Titlename0 = line.Substring(6).Trim(); titlenum = i; }
+                else if (line.StartsWith("Artist:")) { Artistname0 = line.Substring(7).Trim(); artnum = i; }
+                else if (line.StartsWith("Creator:")) { Creatorname = line.Substring(8).Trim(); crenum = i; }
+                else if (line.StartsWith("Version:")) { diffname0 = line.Substring(8).Trim(); vernum = i; }
             }
 
             if (hitnum == -1 || Titlename0 == null || titlenum == -1 || Artistname0 == null || artnum == -1 ||
@@ -288,12 +235,10 @@ namespace taiko
             }
 
 
-
             // 難易度、タイトル、アーティスト名に含まれるパスに使えない文字を削除する
             string Artistname = Regex.Replace(Artistname0, @"[\\\/><?:*|""]+", "");
             string Titlename = Regex.Replace(Titlename0, @"[\\\/><?:*|""]+", "");
             string diffname = Regex.Replace(diffname0, @"[\\\/><?:*|""]+", "");
-
 
 
             // 同じ譜面ですでに生成された譜面があれば、後ろの番号を取得する
@@ -303,10 +248,11 @@ namespace taiko
             string escdiffname = Regex.Escape(diffname);
             string escpart1 = Regex.Escape(part1);
 
-            string pattern = nodiffname ? $@"{escArtistname} - {escTitlename} \({escCreatorname}\) \[{escpart1}\((\d+)\)\]\.osu$"
-                                               : $@"{escArtistname} - {escTitlename} \({escCreatorname}\) \[{escdiffname}\[{escpart1}\]\((\d+)\)\]\.osu$";
+            string pattern = nodiffname 
+                ? $@"{escArtistname} - {escTitlename} \({escCreatorname}\) \[{escpart1}\((\d+)\)\]\.osu$"
+                : $@"{escArtistname} - {escTitlename} \({escCreatorname}\) \[{escdiffname}\[{escpart1}\]\((\d+)\)\]\.osu$";
 
-            List<string> numbers = new List<string>(); // 数字を格納するリスト
+            List<string> numbers = new List<string>(); // 元からある数字を格納するリスト
 
             Directory.GetFiles(box2)
                 .ToList() // GetFilesの結果をToList()で評価
@@ -319,7 +265,6 @@ namespace taiko
                         numbers.Add(number); // 数字をリストに追加
                     }
                 });
-
 
 
             // 繰り返し回数、空欄なら１回
@@ -371,7 +316,7 @@ namespace taiko
 
 
           
-            //Console.WriteLine($"繰り返し処理に入る前までの経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
+            // Console.WriteLine($"繰り返し処理に入る前までの経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
 
 
 
@@ -421,15 +366,19 @@ namespace taiko
                     }
                     catch
                     {
-                        DialogResult dialogResult = MessageBox.Show($"[HitObject]の\"{i + 1}\"行目に不備があるかもしれません\nもしくは osu file format のバージョンが対応していないです><", "",
-                          MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        DialogResult dialogResult = MessageBox.Show(
+                            $".osuファイルの\"{hitnum + i}\"行目に不備があるかもしれません" +
+                            $"\nもしくは osu file format のバージョンが対応していないです><", "",
+                            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         label8.Text = "";
                         return;
                     }
                 }
 
 
+
                 //Console.WriteLine($"ノーツを生成する処理に入る前までの経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
+
 
 
                 List<string> randomafter = new List<string>();
@@ -526,7 +475,11 @@ namespace taiko
 
                 }
 
-                //Console.WriteLine($"bigノーツにする処理に入る前までの経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
+
+
+                // Console.WriteLine($"bigノーツにする処理に入る前までの経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
+
+
 
                 // bigノーツに変換
                 for (int x = 0; x < big.Count; x++)
@@ -568,22 +521,27 @@ namespace taiko
                 }
                 catch (Exception)
                 {
-                    if (newPath.Length > 260)
-                    {
-                        DialogResult dialogResult = MessageBox.Show("エラー\nパスの長さが260文字より多くなってしまうのが原因かもしれません><", "",
+                    if (newPath.Length >= 260)
+                    {            
+                        DialogResult dialogResult = MessageBox.Show(
+                            $"エラー\n生成される譜面のファイル名まで含んだパスの長さが'{newPath.Length}'文字でした" +
+                            $"\nwindowsでは260文字未満にしかできないらしいです><" +
+                            $"\n\"難易度名を残さない\"をオンにしたら'{newPath.Length - diffname.Length}'文字になります", "",
                           MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         label8.Text = "";
                         return;
                     }
                     else
                     {
-                        DialogResult dialogResult = MessageBox.Show("エラー", "",
+                        DialogResult dialogResult = MessageBox.Show("エラー\n生成中に曲のフォルダーが消えた可能性があります><", "",
                           MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         label8.Text = "";
                         return;
                     }
                 }
-                //Console.WriteLine($"１週終わった時の経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
+
+
+                // Console.WriteLine($"１週終わった時の経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
             }
 
             label8.Text = "完了しました！";
@@ -613,59 +571,105 @@ namespace taiko
 
         private void Form1_Load(object sender, EventArgs e) // ロード時の処理
         {
-            textBox2.Text = "1";
-            textBox4.Text = $"[Random]({textBox2.Text})";
 
+            // 言語設定の適応
+            string langset = ConfigurationManager.AppSettings["key3"];
+            string selectlang = langset;
+
+            // 設定する言語のデータを読み取る
+            string relativePath = $@"Language\{selectlang}.txt"; // 読み取るファイルの相対パス
+            string lang = File.ReadAllText(relativePath, Encoding.UTF8);
+
+            // 空行を削除して１次元配列にする
+            List<string> lines = new List<string>(lang.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
+            string[] langarray = lines.ToArray();
+
+            //２次元配列に加工
+            string[,] newlangarray = new string[langarray.Length, 2];
+
+            for (int i = 0; i < langarray.Length; i++)
+            {
+                string[] parts = langarray[i].Split(',');
+
+                for (int j = 0; j < 2; j++)
+                {
+                    newlangarray[i, j] = parts[j].Trim(); // 前後の空白を削除
+                }
+            }
+
+            // Languageにデータをセット
+            Language = newlangarray;
+
+            // フォーム上のテキストを書き換える
+            LanguageChange();
+
+            // 保存された設定の適応
+            string set = ConfigurationManager.AppSettings["key4"];
+
+            if (set != "")
+            {
+                string[] setting = JsonConvert.DeserializeObject<string[]>(set);
+
+                radioButtonR.Checked = (setting[0] == "true" ? true : false); // でたらめか
+                if(radioButtonR.Checked == false) { radioButton2.Checked = true; }
+                textBoxRule.Text = setting[1]; // 制限付きでたらめのルール
+                textBoxTimes.Text = setting[2]; // 個数
+                checkBox2.Checked = (setting[3] == "true" ? true : false); // 難易度名を残さない
+                checkBox1.Checked = (setting[4] == "true" ? true : false); // 上書きする
+                radioButtonhistoryon.Checked = (setting[5] == "true" ? true : false); // 履歴を残すか
+                if(radioButtonhistoryon.Checked == false) { radioButtonhistoryoff.Checked = true; }
+            }
+            else
+            {
+                radioButtonR.Checked = true;
+                radioButtonhistoryon.Checked = true;
+            }        
+
+            // 最初から書き込んでおく
+            textBox2.Text = "1";
+            textBox4.Text = radioButtonR.Checked
+                ? $"[Random]({textBox2.Text})"
+                : $"[LRandom[{textBoxRule.Text}]]({textBox2.Text})";
+
+            // Songsフォルダーのパスがあれば表示
             string folderPath = ConfigurationManager.AppSettings["key1"];
             textBoxRef.Text = folderPath;
+
 
             // 履歴があるか
             string log = ConfigurationManager.AppSettings["key2"];
 
-
             // ある場合は、コンボボックスに表示
             if (log != "[]")
             {
-                JArray jsonArray = JArray.Parse(log);
-                DataTable dataTable = new DataTable();
+                DataTable dataTable = MakeDataTable(log);
 
-                if (jsonArray.Count > 0)
-                {
-                    foreach (var property in jsonArray[0].ToObject<Dictionary<string, object>>())
-                    {
-                        dataTable.Columns.Add(property.Key);
-                    }
-                    foreach (JObject jsonObject in jsonArray)
-                    {
-                        DataRow dataRow = dataTable.NewRow();
-                        foreach (DataColumn column in dataTable.Columns)
-                        {
-                            dataRow[column.ColumnName] = jsonObject[column.ColumnName];
-                        }
-                        dataTable.Rows.Add(dataRow);
-                    }
-                }
+                DataTableSet(dataTable);
 
-                comboBox1.DataSource = dataTable;
-                comboBox1.DisplayMember = "name";
-                comboBox1.ValueMember = "path";
-
-                dataGridView1.DataSource = dataTable;
-                dataGridView1.Columns["name"].Width = 517;
-                dataGridView1.Columns["name"].HeaderText = "ファイル名";
-                dataGridView1.Columns["path"].Width = 75;
-                dataGridView1.Columns["path"].HeaderText = "パス";
-
-                dataGridView1.Columns["path"].DisplayIndex = 1; // 列順入れ替え
-                dataGridView1.Columns["name"].DisplayIndex = 0;
-
-                dataGridView1.Columns.Insert(0, new DataGridViewCheckBoxColumn { HeaderText = "削除", Name = "chkDelete", Width = 30 });
-
-                dataGridView1.Columns[1].ReadOnly = true; // ReadOnly設定
-                dataGridView1.Columns[2].ReadOnly = true;
-                dataGridView1.AllowUserToAddRows = false;
-                dataGridView1.RowHeadersVisible = false;
             }
+
+
+            // Languageフォルダーにあるファイルから取得した言語名をコンボボックスに表示
+            string langpath = @"Language";
+
+            string[] fileNames0 = Directory.GetFiles(langpath);
+
+            string Reg = @"Language\\(.*)\.txt";
+            string[] fileNames = fileNames0.Select(f => Regex.Match(f, Reg).Groups[1].Value).ToArray();
+
+            DataTable langdataTable = new DataTable();
+            langdataTable.Columns.Add("langname");
+
+            foreach (string element in fileNames)
+            {
+                DataRow row = langdataTable.NewRow();
+                row["langname"] = element;
+                langdataTable.Rows.Add(row);
+            }
+
+            comboBoxLanguage.DataSource = langdataTable;
+            comboBoxLanguage.DisplayMember = "langname";
+
         }
 
 
@@ -701,6 +705,7 @@ namespace taiko
 
         }
 
+
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem is DataRowView selectedRow) // DataRowView型であることを確認
@@ -733,7 +738,8 @@ namespace taiko
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+
+        private void button2_Click(object sender, EventArgs e) // 履歴のすべて選択ボタン
         {
             // チェックボックス列の列名
             string checkColumnName = "chkDelete";
@@ -745,7 +751,8 @@ namespace taiko
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+
+        private void button4_Click(object sender, EventArgs e) // 履歴のすべて解除ボタン
         {
             // チェックボックス列の列名
             string checkColumnName = "chkDelete";
@@ -757,13 +764,16 @@ namespace taiko
             }
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+
+        private void button3_Click_1(object sender, EventArgs e) // 履歴の選択中の項目を削除ボタン
         {
             // チェックボックス列の列名
             string checkColumnName = "chkDelete";
 
-            // データテーブルを取得
             DataTable dt = (DataTable)dataGridView1.DataSource;
+
+            // チェックされている行があるかどうかフラグ
+            bool checkedRowExists = false;
 
             // DataGridViewの行を逆順にループ (削除によるインデックスのずれを防ぐため)
             for (int i = dataGridView1.Rows.Count - 1; i >= 0; i--)
@@ -771,23 +781,23 @@ namespace taiko
                 // チェックボックスがチェックされているか確認
                 if (Convert.ToBoolean(dataGridView1.Rows[i].Cells[checkColumnName].Value) == true)
                 {
-                    // データテーブルから対応する行を削除
+                    checkedRowExists = true;
                     dt.Rows.RemoveAt(i);
                 }
             }
 
-            // DataGridViewを更新
-            dataGridView1.DataSource = dt;
+            // チェックされている行が1つ以上あった場合のみ処理を行う
+            if (checkedRowExists)
+            {
+                // DataGridViewを更新
+                dataGridView1.DataSource = dt;
 
-            string json = JsonConvert.SerializeObject(dt); // Newtonsoft.Jsonを使用
+                string json = JsonConvert.SerializeObject(dt);
 
-            // app.configファイルに保存 (例: appSettings要素)
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.AppSettings.Settings["key2"].Value = json;
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
-
+                ConfigSave("key2", json);
+            }
         }
+
 
         private void tabControl1_Click(object sender, EventArgs e)
         {
@@ -797,54 +807,14 @@ namespace taiko
             // ある場合は、コンボボックスに表示
             if (log != "[]")
             {
-                JArray jsonArray = JArray.Parse(log);
-                DataTable dataTable = new DataTable();
+                DataTable dataTable = MakeDataTable(log);
 
-                if (jsonArray.Count > 0)
-                {
-                    foreach (var property in jsonArray[0].ToObject<Dictionary<string, object>>())
-                    {
-                        dataTable.Columns.Add(property.Key);
-                    }
-                    foreach (JObject jsonObject in jsonArray)
-                    {
-                        DataRow dataRow = dataTable.NewRow();
-                        foreach (DataColumn column in dataTable.Columns)
-                        {
-                            dataRow[column.ColumnName] = jsonObject[column.ColumnName];
-                        }
-                        dataTable.Rows.Add(dataRow);
-                    }
-                }
-
-                dataGridView1.DataSource = dataTable;
-                comboBox1.DataSource = dataTable;
-
-                if (dataGridView1.Columns["path"]?.Width != 75) // null許容演算子
-                {
-                    var nameColumn = dataGridView1.Columns["name"];
-                    var pathColumn = dataGridView1.Columns["path"];
-
-                    nameColumn.Width = 517;
-                    nameColumn.HeaderText = "ファイル名";
-                    pathColumn.Width = 75;
-                    pathColumn.HeaderText = "パス";
-
-                    pathColumn.DisplayIndex = 0;
-                    nameColumn.DisplayIndex = 1;
-
-                    dataGridView1.Columns.Insert(0, new DataGridViewCheckBoxColumn { HeaderText = "削除", Name = "chkDelete", Width = 30 });
-
-                    dataGridView1.Columns[1].ReadOnly = true;
-                    dataGridView1.Columns[2].ReadOnly = true;
-                    dataGridView1.AllowUserToAddRows = false;
-                    dataGridView1.RowHeadersVisible = false;
-                }
+                DataTableSet(dataTable);
             }
         }
 
 
-        private void Form1_DragDrop(object sender, DragEventArgs e)
+        private void Form1_DragDrop(object sender, DragEventArgs e) // .osuファイルがドロップされたとき
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length > 0)
@@ -855,14 +825,21 @@ namespace taiko
                 string fileName = Path.GetFileName(filePath);
                 textBoxRef2.Text = fileName;
 
+                // 中身を表示
                 string data = File.ReadAllText(filePath);
                 textBox1.Text = data;
 
-                //box1,2を変える
+                // box1,2を変える
                 box1 = filePath;
 
                 string beforfilePath = filePath.Substring(0, filePath.LastIndexOf('\\'));
                 box2 = beforfilePath;
+
+                // 履歴がオフになっている場合はコンボボックスやデータテーブルに関与しない
+                if (radioButtonhistoryoff.Checked)
+                {
+                    return;
+                }
 
                 // 履歴を取得
                 string log = ConfigurationManager.AppSettings["key2"];
@@ -877,47 +854,20 @@ namespace taiko
 
                     string json = JsonConvert.SerializeObject(dataTable);
 
-                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    config.AppSettings.Settings["key2"].Value = json;
-                    config.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection("appSettings");
+                    ConfigSave("key2", json);
 
-                    comboBox1.DataSource = dataTable;
-                    comboBox1.DisplayMember = "name";
-                    comboBox1.ValueMember = "path";
+                    DataTableSet(dataTable);
 
                 }
                 else // 履歴がすでにある場合はデータテーブルに変換してコンボボックスに表示
                 {
-                    JArray jsonArray = JArray.Parse(log);
-                    DataTable dataTable = new DataTable();
-
-                    if (jsonArray.Count > 0)
-                    {
-                        foreach (var property in jsonArray[0].ToObject<Dictionary<string, object>>())
-                        {
-                            dataTable.Columns.Add(property.Key);
-                        }
-                    }
-
-                    foreach (JObject jsonObject in jsonArray)
-                    {
-                        DataRow dataRow = dataTable.NewRow();
-                        foreach (DataColumn column in dataTable.Columns)
-                        {
-                            dataRow[column.ColumnName] = jsonObject[column.ColumnName];
-                        }
-                        dataTable.Rows.Add(dataRow);
-                    }
+                    DataTable dataTable = MakeDataTable(log);
 
                     dataTable.Rows.Add(dataTable.NewRow()["path"] = filePath, dataTable.NewRow()["name"] = fileName); // 1行で追加
 
                     string json = JsonConvert.SerializeObject(dataTable);
 
-                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    config.AppSettings.Settings["key2"].Value = json;
-                    config.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection("appSettings");
+                    ConfigSave("key2", json);
 
                     comboBox1.DataSource = dataTable;
                     comboBox1.DisplayMember = "name";
@@ -928,63 +878,6 @@ namespace taiko
 
         }
 
-        private void tabPage2_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                // ドロップされたファイルが .osu ファイルかどうかを確認
-                if (files.Any(file => Path.GetExtension(file).ToLower() == ".osu"))
-                {
-                    e.Effect = DragDropEffects.Copy;
-                }
-                else
-                {
-                    e.Effect = DragDropEffects.None;
-                }
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
-        }
-
-        private void tabPage2_DragDrop(object sender, DragEventArgs e)
-        {
-            // イベントを Form に転送
-            Form1_DragDrop(sender, e);
-            tabControl1_Click(sender, e);
-        }
-
-
-        private void tabPage1_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                // ドロップされたファイルが .osu ファイルかどうかを確認
-                if (files.Any(file => Path.GetExtension(file).ToLower() == ".osu"))
-                {
-                    e.Effect = DragDropEffects.Copy;
-                }
-                else
-                {
-                    e.Effect = DragDropEffects.None;
-                }
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
-        }
-
-        private void tabPage1_DragDrop(object sender, DragEventArgs e)
-        {
-            // イベントを Form に転送
-            Form1_DragDrop(sender, e);
-        }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -993,10 +886,242 @@ namespace taiko
                 // チェックボックス列以外のセルがクリックされた場合
                 DataGridViewCheckBoxCell chkCell = dataGridView1.Rows[e.RowIndex].Cells["chkDelete"] as DataGridViewCheckBoxCell;
                 chkCell.Value = !Convert.ToBoolean(chkCell.Value);
-                
+
             }
         }
 
+
+        private int LanguageErrorCount = 0;
+        private string GetValue(string[,] array, string num) // 言語設定から文字列を取得
+        {
+            int rows = array.GetLength(0);
+            for (int i = 0; i < rows; i++)
+            {
+                if (array[i, 0] == num)
+                {
+                    return array[i, 1];
+                }
+            }
+            if (LanguageErrorCount == 0) // 破損があれば一回だけ表示
+            {
+                DialogResult dialogResult = MessageBox.Show("Languageファイルが破損しています><", "",
+                          MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                label8.Text = "";
+            }
+            LanguageErrorCount ++;
+            return ""; // 見つからなかった場合はnullを返す
+        }
+
+
+        private void comboBoxLanguage_SelectionChangeCommitted(object sender, EventArgs e)// 言語が選択されたとき
+        {
+            //選択された言語名を取得
+            string selectlang = comboBoxLanguage.Text;
+
+            // 設定する言語のデータを読み取る
+            string relativePath = $@"Language\{selectlang}.txt"; // 読み取るファイルの相対パス
+            string lang = File.ReadAllText(relativePath, Encoding.UTF8);
+
+            // 空行を削除して１次元配列にする
+            List<string> lines = new List<string>(
+                lang.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
+            string[] langarray = lines.ToArray();
+
+            // ２次元配列に加工
+            string[,] newlangarray = new string[langarray.Length, 2];
+
+            for (int i = 0; i < langarray.Length; i++)
+            {
+              　string[] parts = langarray[i].Split(',');
+
+                for (int j = 0; j < 2; j++)
+                {
+                    newlangarray[i, j] = parts[j].Trim(); // 前後の空白を削除
+                }
+            }
+
+            // Languageにデータをセット
+            Language = newlangarray;
+
+            // フォーム上のテキストを書き換える
+            LanguageChange();
+
+
+            //表の列名は変えられないので、いったんデータを保存して元のデータごと表を削除、そのあと表を作り直す
+            string backup = ConfigurationManager.AppSettings["key2"];
+
+            if (dataGridView1.DataSource != null)
+            {
+                 dataGridView1.DataSource = null;
+            }
+            if (dataGridView1.Columns.Contains("chkDelete"))
+            {
+                // チェックボックス列を削除
+                dataGridView1.Columns.Remove("chkDelete");
+            }
+
+            // 保存したデータ
+            ConfigSave("key2", backup);
+
+            // 履歴があるか
+            string log = ConfigurationManager.AppSettings["key2"];
+
+            // ある場合は、コンボボックスに表示
+            if (log != "[]")
+            {
+                DataTable dataTable = MakeDataTable(log);
+
+                DataTableSet(dataTable);
+
+            }
+
+            // 選んだ言語をconjigに保存
+            ConfigSave("key3", selectlang);
+        }
+
+
+        private void tabControl1_DragEnter(object sender, DragEventArgs e) // ファイルがドラッグアンドドロップされたとき
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                e.Effect = files.Any(file => Path.GetExtension(file).ToLower() == ".osu") ?
+                    DragDropEffects.Copy : DragDropEffects.None;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+        private void tabControl1_DragDrop(object sender, DragEventArgs e)
+        {
+            Form1_DragDrop(sender, e);
+            if (tabControl1.SelectedTab == tabPage2) // 履歴でドロップしていたらコンボボックスと表を更新
+            {
+                tabControl1_Click(sender, e);
+            }
+            
+        }
+
+
+        private void ConfigSave(string key, string value) // configファイルを書き換える
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings[key].Value = value;
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+
+        private DataTable MakeDataTable(string history) // 履歴からデータテーブルを作る
+        {
+            JArray jsonArray = JArray.Parse(history);
+            DataTable dataTable = new DataTable();
+
+            if (jsonArray.Count > 0)
+            {
+                foreach (var property in jsonArray[0].ToObject<Dictionary<string, object>>())
+                {
+                    dataTable.Columns.Add(property.Key);
+                }
+                foreach (JObject jsonObject in jsonArray)
+                {
+                    DataRow dataRow = dataTable.NewRow();
+                    foreach (DataColumn column in dataTable.Columns)
+                    {
+                        dataRow[column.ColumnName] = jsonObject[column.ColumnName];
+                    }
+                    dataTable.Rows.Add(dataRow);
+                }
+            }
+            return dataTable;
+        }
+
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) // アプリ終了時に設定を保存する
+        {
+            string[] setting = {
+                radioButtonR.Checked ? "true" : "false", // でたらめか
+                textBoxRule.Text, // 制限付きでたらめのルール
+                textBoxTimes.Text, // 個数
+                checkBox2.Checked ? "true" : "false", // 難易度名を残さない
+                checkBox1.Checked ? "true" : "false", // 上書きする
+                radioButtonhistoryon.Checked ? "true" : "false" // 履歴を残すか
+            };
+
+            string json = JsonConvert.SerializeObject(setting);
+            ConfigSave("key4", json);
+        }
+
+
+        private void DataTableSet(DataTable dt)
+        {
+            // 履歴のコンボボックス更新
+            comboBox1.DataSource = dt;
+            comboBox1.DisplayMember = "name";
+            comboBox1.ValueMember = "path";
+
+            // 履歴の表がない場合は作る
+            if (dataGridView1.Columns["path"]?.Width != 75) // null許容演算子、表がないか
+            {
+                // チェックボックス列が残っていたら削除
+                if (dataGridView1.Columns.Contains("chkDelete"))
+                {
+                    dataGridView1.Columns.Remove("chkDelete");
+                }
+
+                dataGridView1.DataSource = dt;
+                dataGridView1.Columns["name"].Width = 517;
+                dataGridView1.Columns["name"].HeaderText = GetValue(Language, "22");
+                dataGridView1.Columns["path"].Width = 65;
+                dataGridView1.Columns["path"].HeaderText = GetValue(Language, "23");
+
+                dataGridView1.Columns["path"].DisplayIndex = 1; // 列順入れ替え
+                dataGridView1.Columns["name"].DisplayIndex = 0;
+
+                dataGridView1.Columns.Insert(0, new DataGridViewCheckBoxColumn
+                {
+                    HeaderText = GetValue(Language, "21"),
+                    Name = "chkDelete",
+                    Width = 40
+                });
+
+                dataGridView1.Columns[1].ReadOnly = true;
+                dataGridView1.Columns[2].ReadOnly = true;
+                dataGridView1.AllowUserToAddRows = false;
+                dataGridView1.RowHeadersVisible = false;
+            }
+        }
+
+
+        private void LanguageChange()
+        {
+            tabPage1.Text = GetValue(Language, "1");
+            tabPage2.Text = GetValue(Language, "2");
+            tabPage3.Text = GetValue(Language, "3");
+            buttonRef.Text = GetValue(Language, "4");
+            buttonRef2.Text = GetValue(Language, "4");
+            label1.Text = GetValue(Language, "5");
+            label2.Text = GetValue(Language, "6");
+            label7.Text = GetValue(Language, "7");
+            button1.Text = GetValue(Language, "8");
+            label5.Text = GetValue(Language, "9");
+            label3.Text = GetValue(Language, "10");
+            radioButtonR.Text = GetValue(Language, "11");
+            radioButton2.Text = GetValue(Language, "12");
+            label4.Text = GetValue(Language, "13");
+            checkBox2.Text = GetValue(Language, "14");
+            checkBox1.Text = GetValue(Language, "15");
+            label6.Text = GetValue(Language, "16");
+            button2.Text = GetValue(Language, "17");
+            button4.Text = GetValue(Language, "18");
+            button3.Text = GetValue(Language, "19");
+            label10.Text = GetValue(Language, "20");
+            labellanguage.Text = GetValue(Language, "24");
+            label9.Text = GetValue(Language, "25");
+            radioButtonhistoryon.Text = GetValue(Language, "26");
+            radioButtonhistoryoff.Text = GetValue(Language, "27");
+        }
     }
 
 }

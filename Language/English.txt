@@ -1,0 +1,27 @@
+1,Main Menu
+2,History
+3,Settings
+4,Browse
+5,Songs Folder Path
+6,.osu file for generation
+7,Select from History
+8,Execute
+9,Count
+10, 
+11,Random
+12,Limited Random
+13,Numbering start point is adjustable
+14,Do Not Keep the Original Difficulty Name
+15,Overwrite Existsing
+16,This goes after the difficulty↓
+17,Select All
+18,Deselect All
+19,Deselect Selected
+20,It Will Only Disappear from History
+21,Del
+22,File Name
+23,Path
+24,Language
+25,History
+26,Keep
+27,Don't Keep
