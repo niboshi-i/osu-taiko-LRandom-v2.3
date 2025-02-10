@@ -14,16 +14,22 @@
 11,Numbering start point
 12,Do Not Keep the Original Difficulty Name
 13,Overwrite Existsing
+14,Unchanged Notes
 
-14,Select All
-15,Deselect All
-16,Deselect Selected
-17,It Will Only Disappear from History
-18,Del
-19,File Name
-20,Path
+15,Select All
+16,Deselect All
+17,Deselect Selected
+18,It Will Only Disappear from History
+19,Del
+20,File Name
+21,Path
 
-21,Language
-22,History
-23,Keep
-24,Don't Keep
+22,Language
+23,History
+24,Keep
+25,Don't Keep
+26,Background Img
+27,Read
+28,Don't Read
+29,Songs folder
+30,Browes

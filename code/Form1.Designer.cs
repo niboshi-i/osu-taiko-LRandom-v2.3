@@ -28,17 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.radioButtonR = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBoxRule = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBoxRef2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxTimes = new System.Windows.Forms.TextBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -50,6 +49,18 @@
             this.button3 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.textBoxHistory = new System.Windows.Forms.TextBox();
+            this.numericUpDownNum = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDowncount = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxnochange = new System.Windows.Forms.CheckBox();
+            this.numericUpDownOffset = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxSV = new System.Windows.Forms.CheckBox();
+            this.labelOffset = new System.Windows.Forms.Label();
+            this.textBoxHP = new System.Windows.Forms.TextBox();
+            this.labelHP = new System.Windows.Forms.Label();
+            this.textBoxOD = new System.Windows.Forms.TextBox();
+            this.labelOD = new System.Windows.Forms.Label();
             this.buttonread = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -57,18 +68,30 @@
             this.label10 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.radioButtonpicon = new System.Windows.Forms.RadioButton();
+            this.radioButtonpicoff = new System.Windows.Forms.RadioButton();
             this.label9 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.radioButtonhistoryon = new System.Windows.Forms.RadioButton();
             this.radioButtonhistoryoff = new System.Windows.Forms.RadioButton();
             this.labellanguage = new System.Windows.Forms.Label();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
+            this.textBoxSongs = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonSongs = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDowncount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOffset)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,7 +113,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(205, 131);
+            this.textBox1.Size = new System.Drawing.Size(101, 131);
             this.textBox1.TabIndex = 2;
             // 
             // radioButtonR
@@ -119,16 +142,6 @@
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.Click += new System.EventHandler(this.radioButton2_Click);
             // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox2.Location = new System.Drawing.Point(586, 197);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(39, 27);
-            this.textBox2.TabIndex = 6;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(38, 236);
@@ -136,7 +149,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(205, 131);
+            this.textBox3.Size = new System.Drawing.Size(101, 131);
             this.textBox3.TabIndex = 7;
             // 
             // textBoxRule
@@ -176,20 +189,11 @@
             this.label2.TabIndex = 15;
             this.label2.Text = "生成したい譜面";
             // 
-            // textBoxTimes
-            // 
-            this.textBoxTimes.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBoxTimes.Location = new System.Drawing.Point(586, 117);
-            this.textBoxTimes.Name = "textBoxTimes";
-            this.textBoxTimes.Size = new System.Drawing.Size(40, 31);
-            this.textBoxTimes.TabIndex = 16;
-            this.textBoxTimes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.checkBox2.Location = new System.Drawing.Point(3, 9);
+            this.checkBox2.Location = new System.Drawing.Point(3, 0);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(317, 28);
             this.checkBox2.TabIndex = 19;
@@ -211,7 +215,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.checkBox1.Location = new System.Drawing.Point(3, 42);
+            this.checkBox1.Location = new System.Drawing.Point(3, 33);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(349, 28);
             this.checkBox1.TabIndex = 22;
@@ -302,16 +306,26 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.pictureBox1);
+            this.tabPage1.Controls.Add(this.textBoxHistory);
+            this.tabPage1.Controls.Add(this.numericUpDownNum);
+            this.tabPage1.Controls.Add(this.numericUpDowncount);
+            this.tabPage1.Controls.Add(this.checkBoxnochange);
+            this.tabPage1.Controls.Add(this.numericUpDownOffset);
+            this.tabPage1.Controls.Add(this.checkBoxSV);
+            this.tabPage1.Controls.Add(this.labelOffset);
+            this.tabPage1.Controls.Add(this.textBoxHP);
+            this.tabPage1.Controls.Add(this.labelHP);
+            this.tabPage1.Controls.Add(this.textBoxOD);
+            this.tabPage1.Controls.Add(this.labelOD);
             this.tabPage1.Controls.Add(this.buttonread);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.textBox2);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.comboBox1);
-            this.tabPage1.Controls.Add(this.textBoxTimes);
             this.tabPage1.Controls.Add(this.textBox3);
             this.tabPage1.Controls.Add(this.textBoxRule);
             this.tabPage1.Controls.Add(this.radioButton2);
@@ -325,6 +339,158 @@
             this.tabPage1.Size = new System.Drawing.Size(678, 402);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "メインメニュー";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(150, 101);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(110, 80);
+            this.pictureBox1.TabIndex = 29;
+            this.pictureBox1.TabStop = false;
+            // 
+            // textBoxHistory
+            // 
+            this.textBoxHistory.Location = new System.Drawing.Point(165, 374);
+            this.textBoxHistory.Name = "textBoxHistory";
+            this.textBoxHistory.Size = new System.Drawing.Size(100, 25);
+            this.textBoxHistory.TabIndex = 38;
+            this.textBoxHistory.Visible = false;
+            // 
+            // numericUpDownNum
+            // 
+            this.numericUpDownNum.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.numericUpDownNum.Location = new System.Drawing.Point(586, 197);
+            this.numericUpDownNum.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownNum.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownNum.Name = "numericUpDownNum";
+            this.numericUpDownNum.Size = new System.Drawing.Size(54, 27);
+            this.numericUpDownNum.TabIndex = 36;
+            this.numericUpDownNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDownNum.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownNum.ValueChanged += new System.EventHandler(this.numericUpDownNum_ValueChanged);
+            // 
+            // numericUpDowncount
+            // 
+            this.numericUpDowncount.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.numericUpDowncount.Location = new System.Drawing.Point(586, 117);
+            this.numericUpDowncount.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDowncount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDowncount.Name = "numericUpDowncount";
+            this.numericUpDowncount.Size = new System.Drawing.Size(55, 31);
+            this.numericUpDowncount.TabIndex = 35;
+            this.numericUpDowncount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDowncount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // checkBoxnochange
+            // 
+            this.checkBoxnochange.AutoSize = true;
+            this.checkBoxnochange.Location = new System.Drawing.Point(164, 351);
+            this.checkBoxnochange.Name = "checkBoxnochange";
+            this.checkBoxnochange.Size = new System.Drawing.Size(123, 22);
+            this.checkBoxnochange.TabIndex = 34;
+            this.checkBoxnochange.Text = "ノーツを変えない";
+            this.checkBoxnochange.UseVisualStyleBackColor = true;
+            this.checkBoxnochange.CheckedChanged += new System.EventHandler(this.checkBoxnochange_CheckedChanged);
+            // 
+            // numericUpDownOffset
+            // 
+            this.numericUpDownOffset.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.numericUpDownOffset.Location = new System.Drawing.Point(164, 288);
+            this.numericUpDownOffset.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownOffset.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownOffset.Name = "numericUpDownOffset";
+            this.numericUpDownOffset.Size = new System.Drawing.Size(77, 27);
+            this.numericUpDownOffset.TabIndex = 33;
+            // 
+            // checkBoxSV
+            // 
+            this.checkBoxSV.AutoSize = true;
+            this.checkBoxSV.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.checkBoxSV.Location = new System.Drawing.Point(164, 323);
+            this.checkBoxSV.Name = "checkBoxSV";
+            this.checkBoxSV.Size = new System.Drawing.Size(102, 28);
+            this.checkBoxSV.TabIndex = 32;
+            this.checkBoxSV.Text = "no SVwip";
+            this.checkBoxSV.UseVisualStyleBackColor = true;
+            // 
+            // labelOffset
+            // 
+            this.labelOffset.AutoSize = true;
+            this.labelOffset.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelOffset.Location = new System.Drawing.Point(165, 265);
+            this.labelOffset.Name = "labelOffset";
+            this.labelOffset.Size = new System.Drawing.Size(83, 24);
+            this.labelOffset.TabIndex = 30;
+            this.labelOffset.Text = "Offsetwip";
+            // 
+            // textBoxHP
+            // 
+            this.textBoxHP.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBoxHP.Location = new System.Drawing.Point(211, 223);
+            this.textBoxHP.Name = "textBoxHP";
+            this.textBoxHP.Size = new System.Drawing.Size(30, 27);
+            this.textBoxHP.TabIndex = 29;
+            // 
+            // labelHP
+            // 
+            this.labelHP.AutoSize = true;
+            this.labelHP.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelHP.Location = new System.Drawing.Point(211, 200);
+            this.labelHP.Name = "labelHP";
+            this.labelHP.Size = new System.Drawing.Size(32, 24);
+            this.labelHP.TabIndex = 28;
+            this.labelHP.Text = "HP";
+            // 
+            // textBoxOD
+            // 
+            this.textBoxOD.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBoxOD.Location = new System.Drawing.Point(164, 223);
+            this.textBoxOD.Name = "textBoxOD";
+            this.textBoxOD.Size = new System.Drawing.Size(30, 27);
+            this.textBoxOD.TabIndex = 27;
+            // 
+            // labelOD
+            // 
+            this.labelOD.AutoSize = true;
+            this.labelOD.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelOD.Location = new System.Drawing.Point(163, 200);
+            this.labelOD.Name = "labelOD";
+            this.labelOD.Size = new System.Drawing.Size(34, 24);
+            this.labelOD.TabIndex = 26;
+            this.labelOD.Text = "OD";
             // 
             // buttonread
             // 
@@ -398,6 +564,11 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.buttonSongs);
+            this.tabPage3.Controls.Add(this.label3);
+            this.tabPage3.Controls.Add(this.textBoxSongs);
+            this.tabPage3.Controls.Add(this.label1);
+            this.tabPage3.Controls.Add(this.panel3);
             this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Controls.Add(this.panel2);
             this.tabPage3.Controls.Add(this.labellanguage);
@@ -409,6 +580,47 @@
             this.tabPage3.Size = new System.Drawing.Size(678, 402);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "詳細設定";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Location = new System.Drawing.Point(8, 134);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(147, 24);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "背景の画像";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.radioButtonpicon);
+            this.panel3.Controls.Add(this.radioButtonpicoff);
+            this.panel3.Location = new System.Drawing.Point(181, 120);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(244, 47);
+            this.panel3.TabIndex = 6;
+            // 
+            // radioButtonpicon
+            // 
+            this.radioButtonpicon.AutoSize = true;
+            this.radioButtonpicon.Location = new System.Drawing.Point(15, 12);
+            this.radioButtonpicon.Name = "radioButtonpicon";
+            this.radioButtonpicon.Size = new System.Drawing.Size(92, 28);
+            this.radioButtonpicon.TabIndex = 2;
+            this.radioButtonpicon.TabStop = true;
+            this.radioButtonpicon.Text = "読み込む";
+            this.radioButtonpicon.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonpicoff
+            // 
+            this.radioButtonpicoff.AutoSize = true;
+            this.radioButtonpicoff.Location = new System.Drawing.Point(113, 12);
+            this.radioButtonpicoff.Name = "radioButtonpicoff";
+            this.radioButtonpicoff.Size = new System.Drawing.Size(124, 28);
+            this.radioButtonpicoff.TabIndex = 3;
+            this.radioButtonpicoff.TabStop = true;
+            this.radioButtonpicoff.Text = "読み込まない";
+            this.radioButtonpicoff.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
@@ -426,7 +638,7 @@
             this.panel2.Controls.Add(this.radioButtonhistoryoff);
             this.panel2.Location = new System.Drawing.Point(181, 67);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(206, 47);
+            this.panel2.Size = new System.Drawing.Size(244, 47);
             this.panel2.TabIndex = 4;
             // 
             // radioButtonhistoryon
@@ -443,7 +655,7 @@
             // radioButtonhistoryoff
             // 
             this.radioButtonhistoryoff.AutoSize = true;
-            this.radioButtonhistoryoff.Location = new System.Drawing.Point(86, 12);
+            this.radioButtonhistoryoff.Location = new System.Drawing.Point(113, 12);
             this.radioButtonhistoryoff.Name = "radioButtonhistoryoff";
             this.radioButtonhistoryoff.Size = new System.Drawing.Size(92, 28);
             this.radioButtonhistoryoff.TabIndex = 3;
@@ -471,6 +683,34 @@
             this.comboBoxLanguage.TabIndex = 0;
             this.comboBoxLanguage.SelectionChangeCommitted += new System.EventHandler(this.comboBoxLanguage_SelectionChangeCommitted);
             // 
+            // textBoxSongs
+            // 
+            this.textBoxSongs.Location = new System.Drawing.Point(181, 187);
+            this.textBoxSongs.Name = "textBoxSongs";
+            this.textBoxSongs.Size = new System.Drawing.Size(244, 31);
+            this.textBoxSongs.TabIndex = 9;
+            this.textBoxSongs.TextChanged += new System.EventHandler(this.textBoxSongs_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Location = new System.Drawing.Point(8, 187);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(147, 24);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Songsフォルダー";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // buttonSongs
+            // 
+            this.buttonSongs.Location = new System.Drawing.Point(431, 187);
+            this.buttonSongs.Name = "buttonSongs";
+            this.buttonSongs.Size = new System.Drawing.Size(86, 31);
+            this.buttonSongs.TabIndex = 11;
+            this.buttonSongs.Text = "参照";
+            this.buttonSongs.UseVisualStyleBackColor = true;
+            this.buttonSongs.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -490,10 +730,17 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDowncount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOffset)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -506,13 +753,11 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.RadioButton radioButtonR;
         private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBoxRule;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBoxRef2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxTimes;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
@@ -537,6 +782,25 @@
         private System.Windows.Forms.RadioButton radioButtonhistoryoff;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonread;
+        private System.Windows.Forms.Label labelOD;
+        private System.Windows.Forms.TextBox textBoxOD;
+        private System.Windows.Forms.Label labelOffset;
+        private System.Windows.Forms.TextBox textBoxHP;
+        private System.Windows.Forms.Label labelHP;
+        private System.Windows.Forms.CheckBox checkBoxSV;
+        private System.Windows.Forms.NumericUpDown numericUpDownOffset;
+        private System.Windows.Forms.CheckBox checkBoxnochange;
+        private System.Windows.Forms.NumericUpDown numericUpDowncount;
+        private System.Windows.Forms.NumericUpDown numericUpDownNum;
+        private System.Windows.Forms.TextBox textBoxHistory;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RadioButton radioButtonpicon;
+        private System.Windows.Forms.RadioButton radioButtonpicoff;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxSongs;
+        private System.Windows.Forms.Button buttonSongs;
     }
 }
 
