@@ -79,6 +79,7 @@
             this.MinimumSize = new System.Drawing.Size(291, 120);
             this.Name = "CustomDialog";
             this.Text = "osu!taiko LRandom";
+            this.Load += new System.EventHandler(this.CustomDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
