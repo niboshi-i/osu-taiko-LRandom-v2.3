@@ -14,7 +14,7 @@ namespace taiko
 
         public string FirstSelectLanguage
         {
-            get { return comboBoxFirstLanguege.SelectedItem?.ToString(); }
+            get { return comboBoxFirstLanguege.SelectedItem.ToString(); }
         }
 
         private void CustomDialog_Load(object sender, System.EventArgs e)

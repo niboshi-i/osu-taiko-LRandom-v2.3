@@ -1026,9 +1026,11 @@ namespace taiko
             string relativePath = $@"Language\{selectlang}.txt"; // 読み取るファイルの相対パス
             string lang = File.ReadAllText(relativePath, Encoding.UTF8);
 
+            // 改行コードを正規化
+            lang = lang.Replace("\r\n", "\n").Replace("\r", "\n"); // CRLF を LF に統一
+
             // 空行を削除して１次元配列にする
-            List<string> lines = new List<string>(
-                lang.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
+            List<string> lines = new List<string>(lang.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries));
             string[] langarray = lines.ToArray();
 
             // ２次元配列に加工
@@ -1244,9 +1246,13 @@ namespace taiko
             string relativePath = $@"Language\{selectLangage}.txt"; // 読み取るファイルの相対パス
             string lang = File.ReadAllText(relativePath, Encoding.UTF8);
 
+            // 改行コードを正規化
+            lang = lang.Replace("\r\n", "\n").Replace("\r", "\n"); // CRLF を LF に統一
+
             // 空行を削除して１次元配列にする
-            List<string> lines = new List<string>(lang.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries));
+            List<string> lines = new List<string>(lang.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries));
             string[] langarray = lines.ToArray();
+
 
             //２次元配列に加工
             string[,] newlangarray = new string[langarray.Length, 2];
@@ -1331,6 +1337,7 @@ namespace taiko
             buttonSongs.Text = GetValue(Language, "30");
         }
 
+
         private void checkBoxnochange_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxnochange.Checked)
@@ -1358,9 +1365,6 @@ namespace taiko
                 string SongsPath = dig.SelectedPath;
 
                 textBoxSongs.Text = SongsPath;
-
-              
-
             }
         }
 
