@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="osu!taiko LRandom v2.6.exe" size="48096">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="osu!taiko LRandom v2.6.exe" size="47584">
       <assemblyIdentity name="osu!taiko LRandom v2.6" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>oqtrrHdYmBp9YZvQLnTcS+AtHpXOm1Lp06Bx4B8NZnY=</dsig:DigestValue>
+        <dsig:DigestValue>iRG/mgr6VvhQk7OxBqKseXY5rcebKrC7JEyKWtLIvPg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

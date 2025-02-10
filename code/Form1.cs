@@ -14,7 +14,6 @@ using System.Windows.Forms;
 using OsuMemoryDataProvider;
 using OsuMemoryDataProvider.OsuMemoryModels;
 using System.Drawing;
-using System.Drawing.Imaging;
 using OsuParsers.Decoders;
 
 
@@ -124,8 +123,6 @@ namespace taiko
                         }
                     }
 
-
-
                     pictureBox1.Image = resizeBmp;
 
                 }
@@ -181,20 +178,16 @@ namespace taiko
                 comboBox1.ValueMember = "path";
             }
 
-
         }
-
 
 
         private void button1_Click(object sender, EventArgs e) // 実行ボタン
         {
             // Stopwatch オブジェクトを作成
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
+            //Stopwatch stopwatch = new Stopwatch();
+            //stopwatch.Start();
 
             label8.Text = "動作中、、、";
-
 
             // 入力されたデータの文字列の後ろ部分が空白や改行だった場合それを削除して、string型の配列にする
             List<string> lines = new List<string>(textBox1.Lines);
@@ -213,7 +206,6 @@ namespace taiko
 
             string[] result = lines.ToArray();
 
-
             // テキストボックスにデータが入っていなければメッセージボックスを出してプログラムを終了
             if (result.Length == 0)
             {
@@ -223,8 +215,6 @@ namespace taiko
 
                 return;
             }
-
-
 
             // テキストボックスにある難易度の文字列と最初の()の数字
             string diff1 = textBox4.Text;
@@ -282,10 +272,8 @@ namespace taiko
                 return;
             }
 
-
-
-            string ODHP = "";
             //HPとODに半角数字で入力されている場合は変更
+            string ODHP = "";
             if (textBoxOD.Text != "")
             {
                 if (Regex.IsMatch(textBoxOD.Text, @"^([0-9]|10)(\.[0-9]+)?$") || (Regex.IsMatch(textBoxOD.Text, @"^0$")))
@@ -639,6 +627,7 @@ namespace taiko
                     randomafter = noteonly.ToList();
                 }
 
+
                 // ノーツより前の部分と完成したノーツ部分を結合して文字列にする
                 string complete = string.Join(Environment.NewLine, result.Take(hitnum).Concat(randomafter));
 
@@ -695,8 +684,8 @@ namespace taiko
 
             label8.Text = "完了しました！";
 
-            stopwatch.Stop();
-            Console.WriteLine($"終了時の経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
+            //stopwatch.Stop();
+            //Console.WriteLine($"終了時の経過時間: {stopwatch.ElapsedMilliseconds} ミリ秒");
         }
 
 
@@ -768,7 +757,7 @@ namespace taiko
                 else
                 {
                     // キャンセルされた場合
-                    System.Windows.Forms.Application.Exit();
+                    Application.Exit();
 
                     // 設定が保存されないようにして、次開いた時も言語選択フォームを開くようにする
                     ConfigSave("key4", "");

@@ -68,6 +68,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.buttonSongs = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxSongs = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.radioButtonpicon = new System.Windows.Forms.RadioButton();
@@ -78,9 +81,6 @@
             this.radioButtonhistoryoff = new System.Windows.Forms.RadioButton();
             this.labellanguage = new System.Windows.Forms.Label();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
-            this.textBoxSongs = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.buttonSongs = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -581,6 +581,34 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "詳細設定";
             // 
+            // buttonSongs
+            // 
+            this.buttonSongs.Location = new System.Drawing.Point(431, 187);
+            this.buttonSongs.Name = "buttonSongs";
+            this.buttonSongs.Size = new System.Drawing.Size(86, 31);
+            this.buttonSongs.TabIndex = 11;
+            this.buttonSongs.Text = "参照";
+            this.buttonSongs.UseVisualStyleBackColor = true;
+            this.buttonSongs.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.Location = new System.Drawing.Point(8, 187);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(147, 24);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Songsフォルダー";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textBoxSongs
+            // 
+            this.textBoxSongs.Location = new System.Drawing.Point(181, 187);
+            this.textBoxSongs.Name = "textBoxSongs";
+            this.textBoxSongs.Size = new System.Drawing.Size(244, 31);
+            this.textBoxSongs.TabIndex = 9;
+            this.textBoxSongs.TextChanged += new System.EventHandler(this.textBoxSongs_TextChanged);
+            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -683,34 +711,6 @@
             this.comboBoxLanguage.TabIndex = 0;
             this.comboBoxLanguage.SelectionChangeCommitted += new System.EventHandler(this.comboBoxLanguage_SelectionChangeCommitted);
             // 
-            // textBoxSongs
-            // 
-            this.textBoxSongs.Location = new System.Drawing.Point(181, 187);
-            this.textBoxSongs.Name = "textBoxSongs";
-            this.textBoxSongs.Size = new System.Drawing.Size(244, 31);
-            this.textBoxSongs.TabIndex = 9;
-            this.textBoxSongs.TextChanged += new System.EventHandler(this.textBoxSongs_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.Location = new System.Drawing.Point(8, 187);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(147, 24);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Songsフォルダー";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // buttonSongs
-            // 
-            this.buttonSongs.Location = new System.Drawing.Point(431, 187);
-            this.buttonSongs.Name = "buttonSongs";
-            this.buttonSongs.Size = new System.Drawing.Size(86, 31);
-            this.buttonSongs.TabIndex = 11;
-            this.buttonSongs.Text = "参照";
-            this.buttonSongs.UseVisualStyleBackColor = true;
-            this.buttonSongs.Click += new System.EventHandler(this.button5_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -721,7 +721,7 @@
             this.MaximumSize = new System.Drawing.Size(760, 499);
             this.MinimumSize = new System.Drawing.Size(702, 472);
             this.Name = "Form1";
-            this.Text = "osu!taiko LRandom v2.5";
+            this.Text = "osu!taiko LRandom v2.6";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
