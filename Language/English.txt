@@ -33,3 +33,43 @@
 28,Don't Read
 29,Songs folder
 30,Browes
+
+41,Processing...
+42,Completed!
+
+51,osu! Is Not Running ><
+52,Song Folder Not Found ><
+53,May Be Fixed by Setting Songs Folder in Settings ><
+54,Oops! Looks like you haven't picked a map yet ><
+55,Please enter the trailing numbers using half-width characters ><
+56,Map Data May Be Incomplete ><
+57,Please enter the OD value using half-width characters ><
+58,Please enter the HP value using half-width characters ><
+
+59,Please enter the number of items using half-width characters ><
+60,Are you trying to generate more than 100 scores? :O
+61,Are You Sure You Want to Execute?
+
+62,Error in Line
+63,of .osu File ><
+64,May Be Due to Incomplete Line or Unsupported osu File Format Version ><
+65,please enter the rule ><
+66,Please enter the rule correctly ><
+67,Example
+
+68,Error
+69,Path Length Including Generated Map File Name Is
+70,Characters
+71,Windows Only Allows Less Than 260 Characters ><
+72,Do Not Keep the Original Difficulty Name
+73,If you enable this will reduce it to
+74,Characters
+
+75,Song Folder May Have Been Deleted During Generation ><
+76,File May Be Missing or Renamed ><
+
+77,Language File Is Corrupted ><
+78,Please Select Songs Folder
+
+98,Thank You for Downloading!!!!
+99,Appreciation

@@ -28,717 +28,711 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.radioButtonR = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBoxRule = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBoxRef2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.ButtonMake = new System.Windows.Forms.Button();
+            this.TextBoxBeforMapDate = new System.Windows.Forms.TextBox();
+            this.RadioButtonR = new System.Windows.Forms.RadioButton();
+            this.RadioButtonLR = new System.Windows.Forms.RadioButton();
+            this.TextBoxAfterMapDate = new System.Windows.Forms.TextBox();
+            this.TextBoxRule = new System.Windows.Forms.TextBox();
+            this.TextBoxDiffBack = new System.Windows.Forms.TextBox();
+            this.TextBoxSelectMap = new System.Windows.Forms.TextBox();
+            this.LabelSelectMap = new System.Windows.Forms.Label();
+            this.CheckBoxOriginalDiff = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBoxHistory = new System.Windows.Forms.TextBox();
-            this.numericUpDownNum = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDowncount = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxnochange = new System.Windows.Forms.CheckBox();
-            this.numericUpDownOffset = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxSV = new System.Windows.Forms.CheckBox();
-            this.labelOffset = new System.Windows.Forms.Label();
-            this.textBoxHP = new System.Windows.Forms.TextBox();
-            this.labelHP = new System.Windows.Forms.Label();
-            this.textBoxOD = new System.Windows.Forms.TextBox();
-            this.labelOD = new System.Windows.Forms.Label();
-            this.buttonread = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.buttonSongs = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxSongs = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.CheckBoxOverwrite = new System.Windows.Forms.CheckBox();
+            this.LabelDiffNumber = new System.Windows.Forms.Label();
+            this.LabelCount = new System.Windows.Forms.Label();
+            this.ComboBoxSelectHistory = new System.Windows.Forms.ComboBox();
+            this.LabelSelectHistory = new System.Windows.Forms.Label();
+            this.ButtonAllSelect = new System.Windows.Forms.Button();
+            this.ButtonDelete = new System.Windows.Forms.Button();
+            this.TabControl1 = new System.Windows.Forms.TabControl();
+            this.TabPage1 = new System.Windows.Forms.TabPage();
+            this.PictureBox = new System.Windows.Forms.PictureBox();
+            this.NumericUpDownNum = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDowncount = new System.Windows.Forms.NumericUpDown();
+            this.CheckBoxNoChange = new System.Windows.Forms.CheckBox();
+            this.NumericUpDownOffset = new System.Windows.Forms.NumericUpDown();
+            this.CheckBoxSV = new System.Windows.Forms.CheckBox();
+            this.LabelOffset = new System.Windows.Forms.Label();
+            this.TextBoxHP = new System.Windows.Forms.TextBox();
+            this.LabelHP = new System.Windows.Forms.Label();
+            this.TextBoxOD = new System.Windows.Forms.TextBox();
+            this.LabelOD = new System.Windows.Forms.Label();
+            this.Buttonread = new System.Windows.Forms.Button();
+            this.LabelReport = new System.Windows.Forms.Label();
+            this.TabPage2 = new System.Windows.Forms.TabPage();
+            this.ButtonAllCancel = new System.Windows.Forms.Button();
+            this.LabelDelinfo = new System.Windows.Forms.Label();
+            this.DataGridView = new System.Windows.Forms.DataGridView();
+            this.TabPage3 = new System.Windows.Forms.TabPage();
+            this.ButtonSongs = new System.Windows.Forms.Button();
+            this.LabelSongs = new System.Windows.Forms.Label();
+            this.TextBoxSongs = new System.Windows.Forms.TextBox();
+            this.LabelBG = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.radioButtonpicon = new System.Windows.Forms.RadioButton();
-            this.radioButtonpicoff = new System.Windows.Forms.RadioButton();
-            this.label9 = new System.Windows.Forms.Label();
+            this.RadioButtonPicOn = new System.Windows.Forms.RadioButton();
+            this.RadioButtonPicOff = new System.Windows.Forms.RadioButton();
+            this.LabelHistory = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.radioButtonhistoryon = new System.Windows.Forms.RadioButton();
-            this.radioButtonhistoryoff = new System.Windows.Forms.RadioButton();
-            this.labellanguage = new System.Windows.Forms.Label();
-            this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
+            this.RadioButtonHistoryOn = new System.Windows.Forms.RadioButton();
+            this.RadioButtonHistoryOff = new System.Windows.Forms.RadioButton();
+            this.LabelLanguage = new System.Windows.Forms.Label();
+            this.ComboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNum)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDowncount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOffset)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.TabControl1.SuspendLayout();
+            this.TabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDowncount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownOffset)).BeginInit();
+            this.TabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).BeginInit();
+            this.TabPage3.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // ButtonMake
             // 
-            this.button1.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(391, 101);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 70);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "実行";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ButtonMake.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ButtonMake.Location = new System.Drawing.Point(391, 101);
+            this.ButtonMake.Name = "ButtonMake";
+            this.ButtonMake.Size = new System.Drawing.Size(114, 70);
+            this.ButtonMake.TabIndex = 0;
+            this.ButtonMake.Text = "実行";
+            this.ButtonMake.UseVisualStyleBackColor = true;
+            this.ButtonMake.Click += new System.EventHandler(this.Button1_Click);
             // 
-            // textBox1
+            // TextBoxBeforMapDate
             // 
-            this.textBox1.Location = new System.Drawing.Point(38, 92);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(101, 131);
-            this.textBox1.TabIndex = 2;
+            this.TextBoxBeforMapDate.Location = new System.Drawing.Point(38, 92);
+            this.TextBoxBeforMapDate.Multiline = true;
+            this.TextBoxBeforMapDate.Name = "TextBoxBeforMapDate";
+            this.TextBoxBeforMapDate.ReadOnly = true;
+            this.TextBoxBeforMapDate.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.TextBoxBeforMapDate.Size = new System.Drawing.Size(101, 131);
+            this.TextBoxBeforMapDate.TabIndex = 2;
             // 
-            // radioButtonR
+            // RadioButtonR
             // 
-            this.radioButtonR.AutoSize = true;
-            this.radioButtonR.Checked = true;
-            this.radioButtonR.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.radioButtonR.Location = new System.Drawing.Point(271, 191);
-            this.radioButtonR.Name = "radioButtonR";
-            this.radioButtonR.Size = new System.Drawing.Size(116, 35);
-            this.radioButtonR.TabIndex = 3;
-            this.radioButtonR.TabStop = true;
-            this.radioButtonR.Text = "でたらめ";
-            this.radioButtonR.UseVisualStyleBackColor = true;
-            this.radioButtonR.Click += new System.EventHandler(this.radioButtonR_Click);
+            this.RadioButtonR.AutoSize = true;
+            this.RadioButtonR.Checked = true;
+            this.RadioButtonR.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.RadioButtonR.Location = new System.Drawing.Point(271, 191);
+            this.RadioButtonR.Name = "RadioButtonR";
+            this.RadioButtonR.Size = new System.Drawing.Size(116, 35);
+            this.RadioButtonR.TabIndex = 3;
+            this.RadioButtonR.TabStop = true;
+            this.RadioButtonR.Text = "でたらめ";
+            this.RadioButtonR.UseVisualStyleBackColor = true;
+            this.RadioButtonR.Click += new System.EventHandler(this.RadioButtonR_Click);
             // 
-            // radioButton2
+            // RadioButtonLR
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.radioButton2.Location = new System.Drawing.Point(271, 232);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(200, 35);
-            this.radioButton2.TabIndex = 4;
-            this.radioButton2.Text = "制限付きでたらめ";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.Click += new System.EventHandler(this.radioButton2_Click);
+            this.RadioButtonLR.AutoSize = true;
+            this.RadioButtonLR.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.RadioButtonLR.Location = new System.Drawing.Point(271, 232);
+            this.RadioButtonLR.Name = "RadioButtonLR";
+            this.RadioButtonLR.Size = new System.Drawing.Size(200, 35);
+            this.RadioButtonLR.TabIndex = 4;
+            this.RadioButtonLR.Text = "制限付きでたらめ";
+            this.RadioButtonLR.UseVisualStyleBackColor = true;
+            this.RadioButtonLR.Click += new System.EventHandler(this.RadioButton2_Click);
             // 
-            // textBox3
+            // TextBoxAfterMapDate
             // 
-            this.textBox3.Location = new System.Drawing.Point(38, 236);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(101, 131);
-            this.textBox3.TabIndex = 7;
+            this.TextBoxAfterMapDate.Location = new System.Drawing.Point(38, 236);
+            this.TextBoxAfterMapDate.Multiline = true;
+            this.TextBoxAfterMapDate.Name = "TextBoxAfterMapDate";
+            this.TextBoxAfterMapDate.ReadOnly = true;
+            this.TextBoxAfterMapDate.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.TextBoxAfterMapDate.Size = new System.Drawing.Size(101, 131);
+            this.TextBoxAfterMapDate.TabIndex = 7;
             // 
-            // textBoxRule
+            // TextBoxRule
             // 
-            this.textBoxRule.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBoxRule.Location = new System.Drawing.Point(477, 232);
-            this.textBoxRule.Name = "textBoxRule";
-            this.textBoxRule.Size = new System.Drawing.Size(150, 31);
-            this.textBoxRule.TabIndex = 8;
-            this.textBoxRule.TextChanged += new System.EventHandler(this.textBoxRule_TextChanged);
+            this.TextBoxRule.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBoxRule.Location = new System.Drawing.Point(477, 232);
+            this.TextBoxRule.Name = "TextBoxRule";
+            this.TextBoxRule.Size = new System.Drawing.Size(150, 31);
+            this.TextBoxRule.TabIndex = 8;
+            this.TextBoxRule.TextChanged += new System.EventHandler(this.TextBoxRule_TextChanged);
             // 
-            // textBox4
+            // TextBoxDiffBack
             // 
-            this.textBox4.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox4.Location = new System.Drawing.Point(22, 70);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(308, 31);
-            this.textBox4.TabIndex = 9;
+            this.TextBoxDiffBack.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBoxDiffBack.Location = new System.Drawing.Point(22, 70);
+            this.TextBoxDiffBack.Name = "TextBoxDiffBack";
+            this.TextBoxDiffBack.ReadOnly = true;
+            this.TextBoxDiffBack.Size = new System.Drawing.Size(308, 31);
+            this.TextBoxDiffBack.TabIndex = 9;
             // 
-            // textBoxRef2
+            // TextBoxSelectMap
             // 
-            this.textBoxRef2.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBoxRef2.Location = new System.Drawing.Point(26, 15);
-            this.textBoxRef2.Name = "textBoxRef2";
-            this.textBoxRef2.ReadOnly = true;
-            this.textBoxRef2.Size = new System.Drawing.Size(495, 27);
-            this.textBoxRef2.TabIndex = 12;
+            this.TextBoxSelectMap.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBoxSelectMap.Location = new System.Drawing.Point(26, 15);
+            this.TextBoxSelectMap.Name = "TextBoxSelectMap";
+            this.TextBoxSelectMap.ReadOnly = true;
+            this.TextBoxSelectMap.Size = new System.Drawing.Size(495, 27);
+            this.TextBoxSelectMap.TabIndex = 12;
             // 
-            // label2
+            // LabelSelectMap
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(527, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 24);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "生成したい譜面";
+            this.LabelSelectMap.AutoSize = true;
+            this.LabelSelectMap.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelSelectMap.Location = new System.Drawing.Point(527, 18);
+            this.LabelSelectMap.Name = "LabelSelectMap";
+            this.LabelSelectMap.Size = new System.Drawing.Size(122, 24);
+            this.LabelSelectMap.TabIndex = 15;
+            this.LabelSelectMap.Text = "生成したい譜面";
             // 
-            // checkBox2
+            // CheckBoxOriginalDiff
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.checkBox2.Location = new System.Drawing.Point(3, 0);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(317, 28);
-            this.checkBox2.TabIndex = 19;
-            this.checkBox2.Text = "生成する譜面に元の難易度名を残さない";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.CheckBoxOriginalDiff.AutoSize = true;
+            this.CheckBoxOriginalDiff.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.CheckBoxOriginalDiff.Location = new System.Drawing.Point(3, 0);
+            this.CheckBoxOriginalDiff.Name = "CheckBoxOriginalDiff";
+            this.CheckBoxOriginalDiff.Size = new System.Drawing.Size(317, 28);
+            this.CheckBoxOriginalDiff.TabIndex = 19;
+            this.CheckBoxOriginalDiff.Text = "生成する譜面に元の難易度名を残さない";
+            this.CheckBoxOriginalDiff.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.checkBox1);
-            this.panel1.Controls.Add(this.textBox4);
-            this.panel1.Controls.Add(this.checkBox2);
+            this.panel1.Controls.Add(this.CheckBoxOverwrite);
+            this.panel1.Controls.Add(this.TextBoxDiffBack);
+            this.panel1.Controls.Add(this.CheckBoxOriginalDiff);
             this.panel1.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.panel1.Location = new System.Drawing.Point(271, 281);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(373, 112);
             this.panel1.TabIndex = 20;
             // 
-            // checkBox1
+            // CheckBoxOverwrite
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.checkBox1.Location = new System.Drawing.Point(3, 33);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(349, 28);
-            this.checkBox1.TabIndex = 22;
-            this.checkBox1.Text = "同名のファイルがすでにある場合上書きする";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.CheckBoxOverwrite.AutoSize = true;
+            this.CheckBoxOverwrite.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.CheckBoxOverwrite.Location = new System.Drawing.Point(3, 33);
+            this.CheckBoxOverwrite.Name = "CheckBoxOverwrite";
+            this.CheckBoxOverwrite.Size = new System.Drawing.Size(349, 28);
+            this.CheckBoxOverwrite.TabIndex = 22;
+            this.CheckBoxOverwrite.Text = "同名のファイルがすでにある場合上書きする";
+            this.CheckBoxOverwrite.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // LabelDiffNumber
             // 
-            this.label4.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(414, 200);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(166, 20);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "後ろに付く数字の始点";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LabelDiffNumber.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelDiffNumber.Location = new System.Drawing.Point(414, 200);
+            this.LabelDiffNumber.Name = "LabelDiffNumber";
+            this.LabelDiffNumber.Size = new System.Drawing.Size(166, 20);
+            this.LabelDiffNumber.TabIndex = 21;
+            this.LabelDiffNumber.Text = "後ろに付く数字の始点";
+            this.LabelDiffNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label5
+            // LabelCount
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label5.Location = new System.Drawing.Point(511, 120);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 28);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "作る数";
+            this.LabelCount.AutoSize = true;
+            this.LabelCount.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelCount.Location = new System.Drawing.Point(514, 119);
+            this.LabelCount.Name = "LabelCount";
+            this.LabelCount.Size = new System.Drawing.Size(69, 28);
+            this.LabelCount.TabIndex = 21;
+            this.LabelCount.Text = "作る数";
+            this.LabelCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // comboBox1
+            // ComboBoxSelectHistory
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.ItemHeight = 20;
-            this.comboBox1.Location = new System.Drawing.Point(26, 48);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(495, 28);
-            this.comboBox1.TabIndex = 22;
-            this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
+            this.ComboBoxSelectHistory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxSelectHistory.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ComboBoxSelectHistory.FormattingEnabled = true;
+            this.ComboBoxSelectHistory.ItemHeight = 20;
+            this.ComboBoxSelectHistory.Location = new System.Drawing.Point(26, 48);
+            this.ComboBoxSelectHistory.Name = "ComboBoxSelectHistory";
+            this.ComboBoxSelectHistory.Size = new System.Drawing.Size(495, 28);
+            this.ComboBoxSelectHistory.TabIndex = 22;
+            this.ComboBoxSelectHistory.SelectionChangeCommitted += new System.EventHandler(this.ComboBox1_SelectionChangeCommitted);
             // 
-            // label7
+            // LabelSelectHistory
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label7.Location = new System.Drawing.Point(527, 52);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(138, 24);
-            this.label7.TabIndex = 23;
-            this.label7.Text = "履歴から選択する";
+            this.LabelSelectHistory.AutoSize = true;
+            this.LabelSelectHistory.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelSelectHistory.Location = new System.Drawing.Point(527, 52);
+            this.LabelSelectHistory.Name = "LabelSelectHistory";
+            this.LabelSelectHistory.Size = new System.Drawing.Size(138, 24);
+            this.LabelSelectHistory.TabIndex = 23;
+            this.LabelSelectHistory.Text = "履歴から選択する";
             // 
-            // button2
+            // ButtonAllSelect
             // 
-            this.button2.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button2.Location = new System.Drawing.Point(49, 330);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 47);
-            this.button2.TabIndex = 24;
-            this.button2.Text = "全て選択";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.ButtonAllSelect.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ButtonAllSelect.Location = new System.Drawing.Point(49, 330);
+            this.ButtonAllSelect.Name = "ButtonAllSelect";
+            this.ButtonAllSelect.Size = new System.Drawing.Size(123, 47);
+            this.ButtonAllSelect.TabIndex = 24;
+            this.ButtonAllSelect.Text = "全て選択";
+            this.ButtonAllSelect.UseVisualStyleBackColor = true;
+            this.ButtonAllSelect.Click += new System.EventHandler(this.Button2_Click);
             // 
-            // button3
+            // ButtonDelete
             // 
-            this.button3.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button3.Location = new System.Drawing.Point(467, 330);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(162, 47);
-            this.button3.TabIndex = 25;
-            this.button3.Text = "選択中の項目を削除";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            this.ButtonDelete.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ButtonDelete.Location = new System.Drawing.Point(467, 330);
+            this.ButtonDelete.Name = "ButtonDelete";
+            this.ButtonDelete.Size = new System.Drawing.Size(162, 47);
+            this.ButtonDelete.TabIndex = 25;
+            this.ButtonDelete.Text = "選択中の項目を削除";
+            this.ButtonDelete.UseVisualStyleBackColor = true;
+            this.ButtonDelete.Click += new System.EventHandler(this.Button3_Click_1);
             // 
-            // tabControl1
+            // TabControl1
             // 
-            this.tabControl1.AllowDrop = true;
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(686, 433);
-            this.tabControl1.TabIndex = 28;
-            this.tabControl1.Click += new System.EventHandler(this.tabControl1_Click);
-            this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabControl1_DragDrop);
-            this.tabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.tabControl1_DragEnter);
+            this.TabControl1.AllowDrop = true;
+            this.TabControl1.Controls.Add(this.TabPage1);
+            this.TabControl1.Controls.Add(this.TabPage2);
+            this.TabControl1.Controls.Add(this.TabPage3);
+            this.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControl1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TabControl1.Location = new System.Drawing.Point(0, 0);
+            this.TabControl1.Name = "TabControl1";
+            this.TabControl1.SelectedIndex = 0;
+            this.TabControl1.Size = new System.Drawing.Size(686, 433);
+            this.TabControl1.TabIndex = 28;
+            this.TabControl1.Click += new System.EventHandler(this.TabControl1_Click);
+            this.TabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.TabControl1_DragDrop);
+            this.TabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.TabControl1_DragEnter);
             // 
-            // tabPage1
+            // TabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.pictureBox1);
-            this.tabPage1.Controls.Add(this.textBoxHistory);
-            this.tabPage1.Controls.Add(this.numericUpDownNum);
-            this.tabPage1.Controls.Add(this.numericUpDowncount);
-            this.tabPage1.Controls.Add(this.checkBoxnochange);
-            this.tabPage1.Controls.Add(this.numericUpDownOffset);
-            this.tabPage1.Controls.Add(this.checkBoxSV);
-            this.tabPage1.Controls.Add(this.labelOffset);
-            this.tabPage1.Controls.Add(this.textBoxHP);
-            this.tabPage1.Controls.Add(this.labelHP);
-            this.tabPage1.Controls.Add(this.textBoxOD);
-            this.tabPage1.Controls.Add(this.labelOD);
-            this.tabPage1.Controls.Add(this.buttonread);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label8);
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Controls.Add(this.comboBox1);
-            this.tabPage1.Controls.Add(this.textBox3);
-            this.tabPage1.Controls.Add(this.textBoxRule);
-            this.tabPage1.Controls.Add(this.radioButton2);
-            this.tabPage1.Controls.Add(this.radioButtonR);
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.textBoxRef2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 27);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(678, 402);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "メインメニュー";
+            this.TabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPage1.Controls.Add(this.PictureBox);
+            this.TabPage1.Controls.Add(this.NumericUpDownNum);
+            this.TabPage1.Controls.Add(this.NumericUpDowncount);
+            this.TabPage1.Controls.Add(this.CheckBoxNoChange);
+            this.TabPage1.Controls.Add(this.NumericUpDownOffset);
+            this.TabPage1.Controls.Add(this.CheckBoxSV);
+            this.TabPage1.Controls.Add(this.LabelOffset);
+            this.TabPage1.Controls.Add(this.TextBoxHP);
+            this.TabPage1.Controls.Add(this.LabelHP);
+            this.TabPage1.Controls.Add(this.TextBoxOD);
+            this.TabPage1.Controls.Add(this.LabelOD);
+            this.TabPage1.Controls.Add(this.Buttonread);
+            this.TabPage1.Controls.Add(this.LabelDiffNumber);
+            this.TabPage1.Controls.Add(this.LabelReport);
+            this.TabPage1.Controls.Add(this.TextBoxBeforMapDate);
+            this.TabPage1.Controls.Add(this.LabelCount);
+            this.TabPage1.Controls.Add(this.LabelSelectHistory);
+            this.TabPage1.Controls.Add(this.panel1);
+            this.TabPage1.Controls.Add(this.ComboBoxSelectHistory);
+            this.TabPage1.Controls.Add(this.TextBoxAfterMapDate);
+            this.TabPage1.Controls.Add(this.TextBoxRule);
+            this.TabPage1.Controls.Add(this.RadioButtonLR);
+            this.TabPage1.Controls.Add(this.RadioButtonR);
+            this.TabPage1.Controls.Add(this.ButtonMake);
+            this.TabPage1.Controls.Add(this.LabelSelectMap);
+            this.TabPage1.Controls.Add(this.TextBoxSelectMap);
+            this.TabPage1.Location = new System.Drawing.Point(4, 27);
+            this.TabPage1.Name = "TabPage1";
+            this.TabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPage1.Size = new System.Drawing.Size(678, 402);
+            this.TabPage1.TabIndex = 0;
+            this.TabPage1.Text = "メインメニュー";
             // 
-            // pictureBox1
+            // PictureBox
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(150, 101);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(110, 80);
-            this.pictureBox1.TabIndex = 29;
-            this.pictureBox1.TabStop = false;
+            this.PictureBox.Location = new System.Drawing.Point(150, 101);
+            this.PictureBox.Name = "PictureBox";
+            this.PictureBox.Size = new System.Drawing.Size(110, 80);
+            this.PictureBox.TabIndex = 29;
+            this.PictureBox.TabStop = false;
             // 
-            // textBoxHistory
+            // NumericUpDownNum
             // 
-            this.textBoxHistory.Location = new System.Drawing.Point(165, 374);
-            this.textBoxHistory.Name = "textBoxHistory";
-            this.textBoxHistory.Size = new System.Drawing.Size(100, 25);
-            this.textBoxHistory.TabIndex = 38;
-            this.textBoxHistory.Visible = false;
-            // 
-            // numericUpDownNum
-            // 
-            this.numericUpDownNum.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.numericUpDownNum.Location = new System.Drawing.Point(586, 197);
-            this.numericUpDownNum.Maximum = new decimal(new int[] {
+            this.NumericUpDownNum.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.NumericUpDownNum.Location = new System.Drawing.Point(586, 197);
+            this.NumericUpDownNum.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDownNum.Minimum = new decimal(new int[] {
+            this.NumericUpDownNum.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownNum.Name = "numericUpDownNum";
-            this.numericUpDownNum.Size = new System.Drawing.Size(54, 27);
-            this.numericUpDownNum.TabIndex = 36;
-            this.numericUpDownNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDownNum.Value = new decimal(new int[] {
+            this.NumericUpDownNum.Name = "NumericUpDownNum";
+            this.NumericUpDownNum.Size = new System.Drawing.Size(54, 27);
+            this.NumericUpDownNum.TabIndex = 36;
+            this.NumericUpDownNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.NumericUpDownNum.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownNum.ValueChanged += new System.EventHandler(this.numericUpDownNum_ValueChanged);
+            this.NumericUpDownNum.ValueChanged += new System.EventHandler(this.NumericUpDownNum_ValueChanged);
             // 
-            // numericUpDowncount
+            // NumericUpDowncount
             // 
-            this.numericUpDowncount.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.numericUpDowncount.Location = new System.Drawing.Point(586, 117);
-            this.numericUpDowncount.Maximum = new decimal(new int[] {
+            this.NumericUpDowncount.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.NumericUpDowncount.Location = new System.Drawing.Point(586, 117);
+            this.NumericUpDowncount.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDowncount.Minimum = new decimal(new int[] {
+            this.NumericUpDowncount.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDowncount.Name = "numericUpDowncount";
-            this.numericUpDowncount.Size = new System.Drawing.Size(55, 31);
-            this.numericUpDowncount.TabIndex = 35;
-            this.numericUpDowncount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDowncount.Value = new decimal(new int[] {
+            this.NumericUpDowncount.Name = "NumericUpDowncount";
+            this.NumericUpDowncount.Size = new System.Drawing.Size(55, 31);
+            this.NumericUpDowncount.TabIndex = 35;
+            this.NumericUpDowncount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.NumericUpDowncount.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // checkBoxnochange
+            // CheckBoxNoChange
             // 
-            this.checkBoxnochange.AutoSize = true;
-            this.checkBoxnochange.Location = new System.Drawing.Point(164, 351);
-            this.checkBoxnochange.Name = "checkBoxnochange";
-            this.checkBoxnochange.Size = new System.Drawing.Size(123, 22);
-            this.checkBoxnochange.TabIndex = 34;
-            this.checkBoxnochange.Text = "ノーツを変えない";
-            this.checkBoxnochange.UseVisualStyleBackColor = true;
-            this.checkBoxnochange.CheckedChanged += new System.EventHandler(this.checkBoxnochange_CheckedChanged);
+            this.CheckBoxNoChange.AutoSize = true;
+            this.CheckBoxNoChange.Location = new System.Drawing.Point(164, 351);
+            this.CheckBoxNoChange.Name = "CheckBoxNoChange";
+            this.CheckBoxNoChange.Size = new System.Drawing.Size(123, 22);
+            this.CheckBoxNoChange.TabIndex = 34;
+            this.CheckBoxNoChange.Text = "ノーツを変えない";
+            this.CheckBoxNoChange.UseVisualStyleBackColor = true;
+            this.CheckBoxNoChange.CheckedChanged += new System.EventHandler(this.CheckBoxNoChange_CheckedChanged);
             // 
-            // numericUpDownOffset
+            // NumericUpDownOffset
             // 
-            this.numericUpDownOffset.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.numericUpDownOffset.Location = new System.Drawing.Point(164, 288);
-            this.numericUpDownOffset.Maximum = new decimal(new int[] {
+            this.NumericUpDownOffset.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.NumericUpDownOffset.Location = new System.Drawing.Point(164, 288);
+            this.NumericUpDownOffset.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.numericUpDownOffset.Minimum = new decimal(new int[] {
+            this.NumericUpDownOffset.Minimum = new decimal(new int[] {
             100000,
             0,
             0,
             -2147483648});
-            this.numericUpDownOffset.Name = "numericUpDownOffset";
-            this.numericUpDownOffset.Size = new System.Drawing.Size(77, 27);
-            this.numericUpDownOffset.TabIndex = 33;
+            this.NumericUpDownOffset.Name = "NumericUpDownOffset";
+            this.NumericUpDownOffset.Size = new System.Drawing.Size(77, 27);
+            this.NumericUpDownOffset.TabIndex = 33;
             // 
-            // checkBoxSV
+            // CheckBoxSV
             // 
-            this.checkBoxSV.AutoSize = true;
-            this.checkBoxSV.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.checkBoxSV.Location = new System.Drawing.Point(164, 323);
-            this.checkBoxSV.Name = "checkBoxSV";
-            this.checkBoxSV.Size = new System.Drawing.Size(102, 28);
-            this.checkBoxSV.TabIndex = 32;
-            this.checkBoxSV.Text = "no SVwip";
-            this.checkBoxSV.UseVisualStyleBackColor = true;
+            this.CheckBoxSV.AutoSize = true;
+            this.CheckBoxSV.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.CheckBoxSV.Location = new System.Drawing.Point(164, 323);
+            this.CheckBoxSV.Name = "CheckBoxSV";
+            this.CheckBoxSV.Size = new System.Drawing.Size(75, 28);
+            this.CheckBoxSV.TabIndex = 32;
+            this.CheckBoxSV.Text = "no SV";
+            this.CheckBoxSV.UseVisualStyleBackColor = true;
             // 
-            // labelOffset
+            // LabelOffset
             // 
-            this.labelOffset.AutoSize = true;
-            this.labelOffset.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelOffset.Location = new System.Drawing.Point(165, 265);
-            this.labelOffset.Name = "labelOffset";
-            this.labelOffset.Size = new System.Drawing.Size(83, 24);
-            this.labelOffset.TabIndex = 30;
-            this.labelOffset.Text = "Offsetwip";
+            this.LabelOffset.AutoSize = true;
+            this.LabelOffset.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelOffset.Location = new System.Drawing.Point(165, 265);
+            this.LabelOffset.Name = "LabelOffset";
+            this.LabelOffset.Size = new System.Drawing.Size(56, 24);
+            this.LabelOffset.TabIndex = 30;
+            this.LabelOffset.Text = "Offset";
             // 
-            // textBoxHP
+            // TextBoxHP
             // 
-            this.textBoxHP.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBoxHP.Location = new System.Drawing.Point(211, 223);
-            this.textBoxHP.Name = "textBoxHP";
-            this.textBoxHP.Size = new System.Drawing.Size(30, 27);
-            this.textBoxHP.TabIndex = 29;
+            this.TextBoxHP.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBoxHP.Location = new System.Drawing.Point(211, 223);
+            this.TextBoxHP.Name = "TextBoxHP";
+            this.TextBoxHP.Size = new System.Drawing.Size(30, 27);
+            this.TextBoxHP.TabIndex = 29;
             // 
-            // labelHP
+            // LabelHP
             // 
-            this.labelHP.AutoSize = true;
-            this.labelHP.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelHP.Location = new System.Drawing.Point(211, 200);
-            this.labelHP.Name = "labelHP";
-            this.labelHP.Size = new System.Drawing.Size(32, 24);
-            this.labelHP.TabIndex = 28;
-            this.labelHP.Text = "HP";
+            this.LabelHP.AutoSize = true;
+            this.LabelHP.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelHP.Location = new System.Drawing.Point(211, 200);
+            this.LabelHP.Name = "LabelHP";
+            this.LabelHP.Size = new System.Drawing.Size(32, 24);
+            this.LabelHP.TabIndex = 28;
+            this.LabelHP.Text = "HP";
             // 
-            // textBoxOD
+            // TextBoxOD
             // 
-            this.textBoxOD.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBoxOD.Location = new System.Drawing.Point(164, 223);
-            this.textBoxOD.Name = "textBoxOD";
-            this.textBoxOD.Size = new System.Drawing.Size(30, 27);
-            this.textBoxOD.TabIndex = 27;
+            this.TextBoxOD.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBoxOD.Location = new System.Drawing.Point(164, 223);
+            this.TextBoxOD.Name = "TextBoxOD";
+            this.TextBoxOD.Size = new System.Drawing.Size(30, 27);
+            this.TextBoxOD.TabIndex = 27;
             // 
-            // labelOD
+            // LabelOD
             // 
-            this.labelOD.AutoSize = true;
-            this.labelOD.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelOD.Location = new System.Drawing.Point(163, 200);
-            this.labelOD.Name = "labelOD";
-            this.labelOD.Size = new System.Drawing.Size(34, 24);
-            this.labelOD.TabIndex = 26;
-            this.labelOD.Text = "OD";
+            this.LabelOD.AutoSize = true;
+            this.LabelOD.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelOD.Location = new System.Drawing.Point(163, 200);
+            this.LabelOD.Name = "LabelOD";
+            this.LabelOD.Size = new System.Drawing.Size(34, 24);
+            this.LabelOD.TabIndex = 26;
+            this.LabelOD.Text = "OD";
             // 
-            // buttonread
+            // Buttonread
             // 
-            this.buttonread.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonread.Location = new System.Drawing.Point(271, 101);
-            this.buttonread.Name = "buttonread";
-            this.buttonread.Size = new System.Drawing.Size(114, 70);
-            this.buttonread.TabIndex = 25;
-            this.buttonread.Text = "読み込む";
-            this.buttonread.UseVisualStyleBackColor = true;
-            this.buttonread.Click += new System.EventHandler(this.buttonread_Click);
+            this.Buttonread.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Buttonread.Location = new System.Drawing.Point(271, 101);
+            this.Buttonread.Name = "Buttonread";
+            this.Buttonread.Size = new System.Drawing.Size(114, 70);
+            this.Buttonread.TabIndex = 25;
+            this.Buttonread.Text = "読み込む";
+            this.Buttonread.UseVisualStyleBackColor = true;
+            this.Buttonread.Click += new System.EventHandler(this.Buttonread_Click);
             // 
-            // label8
+            // LabelReport
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label8.Location = new System.Drawing.Point(48, 371);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(0, 24);
-            this.label8.TabIndex = 24;
+            this.LabelReport.AutoSize = true;
+            this.LabelReport.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelReport.Location = new System.Drawing.Point(43, 371);
+            this.LabelReport.Name = "LabelReport";
+            this.LabelReport.Size = new System.Drawing.Size(0, 24);
+            this.LabelReport.TabIndex = 24;
             // 
-            // tabPage2
+            // TabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.dataGridView1);
-            this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Controls.Add(this.button3);
-            this.tabPage2.Location = new System.Drawing.Point(4, 27);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabPage2.Size = new System.Drawing.Size(678, 402);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "履歴";
+            this.TabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPage2.Controls.Add(this.ButtonAllCancel);
+            this.TabPage2.Controls.Add(this.LabelDelinfo);
+            this.TabPage2.Controls.Add(this.DataGridView);
+            this.TabPage2.Controls.Add(this.ButtonAllSelect);
+            this.TabPage2.Controls.Add(this.ButtonDelete);
+            this.TabPage2.Location = new System.Drawing.Point(4, 27);
+            this.TabPage2.Name = "TabPage2";
+            this.TabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPage2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.TabPage2.Size = new System.Drawing.Size(678, 402);
+            this.TabPage2.TabIndex = 1;
+            this.TabPage2.Text = "履歴";
             // 
-            // button4
+            // ButtonAllCancel
             // 
-            this.button4.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button4.Location = new System.Drawing.Point(178, 330);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(123, 47);
-            this.button4.TabIndex = 30;
-            this.button4.Text = "全て解除";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.ButtonAllCancel.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ButtonAllCancel.Location = new System.Drawing.Point(178, 330);
+            this.ButtonAllCancel.Name = "ButtonAllCancel";
+            this.ButtonAllCancel.Size = new System.Drawing.Size(123, 47);
+            this.ButtonAllCancel.TabIndex = 30;
+            this.ButtonAllCancel.Text = "全て解除";
+            this.ButtonAllCancel.UseVisualStyleBackColor = true;
+            this.ButtonAllCancel.Click += new System.EventHandler(this.Button4_Click);
             // 
-            // label10
+            // LabelDelinfo
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(427, 379);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(224, 18);
-            this.label10.TabIndex = 29;
-            this.label10.Text = "履歴から消えるだけで譜面は消えません";
+            this.LabelDelinfo.AutoSize = true;
+            this.LabelDelinfo.Location = new System.Drawing.Point(427, 379);
+            this.LabelDelinfo.Name = "LabelDelinfo";
+            this.LabelDelinfo.Size = new System.Drawing.Size(224, 18);
+            this.LabelDelinfo.TabIndex = 29;
+            this.LabelDelinfo.Text = "履歴から消えるだけで譜面は消えません";
             // 
-            // dataGridView1
+            // DataGridView
             // 
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(26, 21);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 21;
-            this.dataGridView1.Size = new System.Drawing.Size(625, 290);
-            this.dataGridView1.TabIndex = 28;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.DataGridView.AllowUserToOrderColumns = true;
+            this.DataGridView.AllowUserToResizeColumns = false;
+            this.DataGridView.AllowUserToResizeRows = false;
+            this.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridView.Location = new System.Drawing.Point(26, 21);
+            this.DataGridView.Name = "DataGridView";
+            this.DataGridView.RowTemplate.Height = 21;
+            this.DataGridView.Size = new System.Drawing.Size(625, 290);
+            this.DataGridView.TabIndex = 28;
+            this.DataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
             // 
-            // tabPage3
+            // TabPage3
             // 
-            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage3.Controls.Add(this.buttonSongs);
-            this.tabPage3.Controls.Add(this.label3);
-            this.tabPage3.Controls.Add(this.textBoxSongs);
-            this.tabPage3.Controls.Add(this.label1);
-            this.tabPage3.Controls.Add(this.panel3);
-            this.tabPage3.Controls.Add(this.label9);
-            this.tabPage3.Controls.Add(this.panel2);
-            this.tabPage3.Controls.Add(this.labellanguage);
-            this.tabPage3.Controls.Add(this.comboBoxLanguage);
-            this.tabPage3.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.tabPage3.Location = new System.Drawing.Point(4, 27);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(678, 402);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "詳細設定";
+            this.TabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPage3.Controls.Add(this.ButtonSongs);
+            this.TabPage3.Controls.Add(this.LabelSongs);
+            this.TabPage3.Controls.Add(this.TextBoxSongs);
+            this.TabPage3.Controls.Add(this.LabelBG);
+            this.TabPage3.Controls.Add(this.panel3);
+            this.TabPage3.Controls.Add(this.LabelHistory);
+            this.TabPage3.Controls.Add(this.panel2);
+            this.TabPage3.Controls.Add(this.LabelLanguage);
+            this.TabPage3.Controls.Add(this.ComboBoxLanguage);
+            this.TabPage3.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TabPage3.Location = new System.Drawing.Point(4, 27);
+            this.TabPage3.Name = "TabPage3";
+            this.TabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPage3.Size = new System.Drawing.Size(678, 402);
+            this.TabPage3.TabIndex = 2;
+            this.TabPage3.Text = "詳細設定";
             // 
-            // buttonSongs
+            // ButtonSongs
             // 
-            this.buttonSongs.Location = new System.Drawing.Point(431, 187);
-            this.buttonSongs.Name = "buttonSongs";
-            this.buttonSongs.Size = new System.Drawing.Size(86, 31);
-            this.buttonSongs.TabIndex = 11;
-            this.buttonSongs.Text = "参照";
-            this.buttonSongs.UseVisualStyleBackColor = true;
-            this.buttonSongs.Click += new System.EventHandler(this.button5_Click);
+            this.ButtonSongs.Location = new System.Drawing.Point(431, 184);
+            this.ButtonSongs.Name = "ButtonSongs";
+            this.ButtonSongs.Size = new System.Drawing.Size(86, 31);
+            this.ButtonSongs.TabIndex = 11;
+            this.ButtonSongs.Text = "参照";
+            this.ButtonSongs.UseVisualStyleBackColor = true;
+            this.ButtonSongs.Visible = false;
+            this.ButtonSongs.Click += new System.EventHandler(this.ButtonSongs_Click);
             // 
-            // label3
+            // LabelSongs
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.Location = new System.Drawing.Point(8, 187);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(147, 24);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Songsフォルダー";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.LabelSongs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelSongs.Location = new System.Drawing.Point(4, 187);
+            this.LabelSongs.Name = "LabelSongs";
+            this.LabelSongs.Size = new System.Drawing.Size(147, 24);
+            this.LabelSongs.TabIndex = 10;
+            this.LabelSongs.Text = "Songsフォルダー";
+            this.LabelSongs.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.LabelSongs.Visible = false;
             // 
-            // textBoxSongs
+            // TextBoxSongs
             // 
-            this.textBoxSongs.Location = new System.Drawing.Point(181, 187);
-            this.textBoxSongs.Name = "textBoxSongs";
-            this.textBoxSongs.Size = new System.Drawing.Size(244, 31);
-            this.textBoxSongs.TabIndex = 9;
-            this.textBoxSongs.TextChanged += new System.EventHandler(this.textBoxSongs_TextChanged);
+            this.TextBoxSongs.Location = new System.Drawing.Point(181, 184);
+            this.TextBoxSongs.Name = "TextBoxSongs";
+            this.TextBoxSongs.ReadOnly = true;
+            this.TextBoxSongs.Size = new System.Drawing.Size(244, 31);
+            this.TextBoxSongs.TabIndex = 9;
+            this.TextBoxSongs.Visible = false;
+            this.TextBoxSongs.TextChanged += new System.EventHandler(this.TextBoxSongs_TextChanged);
             // 
-            // label1
+            // LabelBG
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(8, 134);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 24);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "背景の画像";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.LabelBG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelBG.Location = new System.Drawing.Point(8, 134);
+            this.LabelBG.Name = "LabelBG";
+            this.LabelBG.Size = new System.Drawing.Size(147, 24);
+            this.LabelBG.TabIndex = 7;
+            this.LabelBG.Text = "背景の画像";
+            this.LabelBG.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.radioButtonpicon);
-            this.panel3.Controls.Add(this.radioButtonpicoff);
+            this.panel3.Controls.Add(this.RadioButtonPicOn);
+            this.panel3.Controls.Add(this.RadioButtonPicOff);
             this.panel3.Location = new System.Drawing.Point(181, 120);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(244, 47);
             this.panel3.TabIndex = 6;
             // 
-            // radioButtonpicon
+            // RadioButtonPicOn
             // 
-            this.radioButtonpicon.AutoSize = true;
-            this.radioButtonpicon.Location = new System.Drawing.Point(15, 12);
-            this.radioButtonpicon.Name = "radioButtonpicon";
-            this.radioButtonpicon.Size = new System.Drawing.Size(92, 28);
-            this.radioButtonpicon.TabIndex = 2;
-            this.radioButtonpicon.TabStop = true;
-            this.radioButtonpicon.Text = "読み込む";
-            this.radioButtonpicon.UseVisualStyleBackColor = true;
+            this.RadioButtonPicOn.AutoSize = true;
+            this.RadioButtonPicOn.Location = new System.Drawing.Point(15, 12);
+            this.RadioButtonPicOn.Name = "RadioButtonPicOn";
+            this.RadioButtonPicOn.Size = new System.Drawing.Size(92, 28);
+            this.RadioButtonPicOn.TabIndex = 2;
+            this.RadioButtonPicOn.TabStop = true;
+            this.RadioButtonPicOn.Text = "読み込む";
+            this.RadioButtonPicOn.UseVisualStyleBackColor = true;
             // 
-            // radioButtonpicoff
+            // RadioButtonPicOff
             // 
-            this.radioButtonpicoff.AutoSize = true;
-            this.radioButtonpicoff.Location = new System.Drawing.Point(113, 12);
-            this.radioButtonpicoff.Name = "radioButtonpicoff";
-            this.radioButtonpicoff.Size = new System.Drawing.Size(124, 28);
-            this.radioButtonpicoff.TabIndex = 3;
-            this.radioButtonpicoff.TabStop = true;
-            this.radioButtonpicoff.Text = "読み込まない";
-            this.radioButtonpicoff.UseVisualStyleBackColor = true;
+            this.RadioButtonPicOff.AutoSize = true;
+            this.RadioButtonPicOff.Location = new System.Drawing.Point(113, 12);
+            this.RadioButtonPicOff.Name = "RadioButtonPicOff";
+            this.RadioButtonPicOff.Size = new System.Drawing.Size(124, 28);
+            this.RadioButtonPicOff.TabIndex = 3;
+            this.RadioButtonPicOff.TabStop = true;
+            this.RadioButtonPicOff.Text = "読み込まない";
+            this.RadioButtonPicOff.UseVisualStyleBackColor = true;
+            this.RadioButtonPicOff.Click += new System.EventHandler(this.RadioButtonPicOff_Click);
             // 
-            // label9
+            // LabelHistory
             // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.Location = new System.Drawing.Point(17, 81);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(134, 24);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "履歴";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.LabelHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelHistory.Location = new System.Drawing.Point(17, 81);
+            this.LabelHistory.Name = "LabelHistory";
+            this.LabelHistory.Size = new System.Drawing.Size(134, 24);
+            this.LabelHistory.TabIndex = 5;
+            this.LabelHistory.Text = "履歴";
+            this.LabelHistory.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.radioButtonhistoryon);
-            this.panel2.Controls.Add(this.radioButtonhistoryoff);
+            this.panel2.Controls.Add(this.RadioButtonHistoryOn);
+            this.panel2.Controls.Add(this.RadioButtonHistoryOff);
             this.panel2.Location = new System.Drawing.Point(181, 67);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(244, 47);
             this.panel2.TabIndex = 4;
             // 
-            // radioButtonhistoryon
+            // RadioButtonHistoryOn
             // 
-            this.radioButtonhistoryon.AutoSize = true;
-            this.radioButtonhistoryon.Location = new System.Drawing.Point(15, 12);
-            this.radioButtonhistoryon.Name = "radioButtonhistoryon";
-            this.radioButtonhistoryon.Size = new System.Drawing.Size(60, 28);
-            this.radioButtonhistoryon.TabIndex = 2;
-            this.radioButtonhistoryon.TabStop = true;
-            this.radioButtonhistoryon.Text = "残す";
-            this.radioButtonhistoryon.UseVisualStyleBackColor = true;
+            this.RadioButtonHistoryOn.AutoSize = true;
+            this.RadioButtonHistoryOn.Location = new System.Drawing.Point(15, 12);
+            this.RadioButtonHistoryOn.Name = "RadioButtonHistoryOn";
+            this.RadioButtonHistoryOn.Size = new System.Drawing.Size(60, 28);
+            this.RadioButtonHistoryOn.TabIndex = 2;
+            this.RadioButtonHistoryOn.TabStop = true;
+            this.RadioButtonHistoryOn.Text = "残す";
+            this.RadioButtonHistoryOn.UseVisualStyleBackColor = true;
             // 
-            // radioButtonhistoryoff
+            // RadioButtonHistoryOff
             // 
-            this.radioButtonhistoryoff.AutoSize = true;
-            this.radioButtonhistoryoff.Location = new System.Drawing.Point(113, 12);
-            this.radioButtonhistoryoff.Name = "radioButtonhistoryoff";
-            this.radioButtonhistoryoff.Size = new System.Drawing.Size(92, 28);
-            this.radioButtonhistoryoff.TabIndex = 3;
-            this.radioButtonhistoryoff.TabStop = true;
-            this.radioButtonhistoryoff.Text = "残さない";
-            this.radioButtonhistoryoff.UseVisualStyleBackColor = true;
+            this.RadioButtonHistoryOff.AutoSize = true;
+            this.RadioButtonHistoryOff.Location = new System.Drawing.Point(113, 12);
+            this.RadioButtonHistoryOff.Name = "RadioButtonHistoryOff";
+            this.RadioButtonHistoryOff.Size = new System.Drawing.Size(92, 28);
+            this.RadioButtonHistoryOff.TabIndex = 3;
+            this.RadioButtonHistoryOff.TabStop = true;
+            this.RadioButtonHistoryOff.Text = "残さない";
+            this.RadioButtonHistoryOff.UseVisualStyleBackColor = true;
             // 
-            // labellanguage
+            // LabelLanguage
             // 
-            this.labellanguage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labellanguage.Location = new System.Drawing.Point(21, 32);
-            this.labellanguage.Name = "labellanguage";
-            this.labellanguage.Size = new System.Drawing.Size(130, 24);
-            this.labellanguage.TabIndex = 1;
-            this.labellanguage.Text = "言語設定";
-            this.labellanguage.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.LabelLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelLanguage.Location = new System.Drawing.Point(21, 32);
+            this.LabelLanguage.Name = "LabelLanguage";
+            this.LabelLanguage.Size = new System.Drawing.Size(130, 24);
+            this.LabelLanguage.TabIndex = 1;
+            this.LabelLanguage.Text = "言語設定";
+            this.LabelLanguage.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // comboBoxLanguage
+            // ComboBoxLanguage
             // 
-            this.comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLanguage.FormattingEnabled = true;
-            this.comboBoxLanguage.Location = new System.Drawing.Point(181, 29);
-            this.comboBoxLanguage.Name = "comboBoxLanguage";
-            this.comboBoxLanguage.Size = new System.Drawing.Size(178, 32);
-            this.comboBoxLanguage.TabIndex = 0;
-            this.comboBoxLanguage.SelectionChangeCommitted += new System.EventHandler(this.comboBoxLanguage_SelectionChangeCommitted);
+            this.ComboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxLanguage.FormattingEnabled = true;
+            this.ComboBoxLanguage.Location = new System.Drawing.Point(181, 29);
+            this.ComboBoxLanguage.Name = "ComboBoxLanguage";
+            this.ComboBoxLanguage.Size = new System.Drawing.Size(178, 32);
+            this.ComboBoxLanguage.TabIndex = 0;
+            this.ComboBoxLanguage.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxLanguage_SelectionChangeCommitted);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(686, 433);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.TabControl1);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(760, 499);
             this.MinimumSize = new System.Drawing.Size(702, 472);
             this.Name = "Form1";
-            this.Text = "osu!taiko LRandom v2.6";
+            this.Text = "osu!taiko LRandom v2.7";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNum)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDowncount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOffset)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.TabControl1.ResumeLayout(false);
+            this.TabPage1.ResumeLayout(false);
+            this.TabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDowncount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownOffset)).EndInit();
+            this.TabPage2.ResumeLayout(false);
+            this.TabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
+            this.TabPage3.ResumeLayout(false);
+            this.TabPage3.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -749,58 +743,57 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.RadioButton radioButtonR;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBoxRule;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBoxRef2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Button ButtonMake;
+        private System.Windows.Forms.TextBox TextBoxBeforMapDate;
+        private System.Windows.Forms.RadioButton RadioButtonR;
+        private System.Windows.Forms.RadioButton RadioButtonLR;
+        private System.Windows.Forms.TextBox TextBoxAfterMapDate;
+        private System.Windows.Forms.TextBox TextBoxRule;
+        private System.Windows.Forms.TextBox TextBoxDiffBack;
+        private System.Windows.Forms.TextBox TextBoxSelectMap;
+        private System.Windows.Forms.Label LabelSelectMap;
+        private System.Windows.Forms.CheckBox CheckBoxOriginalDiff;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Label labellanguage;
-        private System.Windows.Forms.ComboBox comboBoxLanguage;
+        private System.Windows.Forms.Label LabelDiffNumber;
+        private System.Windows.Forms.Label LabelCount;
+        private System.Windows.Forms.CheckBox CheckBoxOverwrite;
+        private System.Windows.Forms.ComboBox ComboBoxSelectHistory;
+        private System.Windows.Forms.Label LabelSelectHistory;
+        private System.Windows.Forms.Button ButtonAllSelect;
+        private System.Windows.Forms.Button ButtonDelete;
+        private System.Windows.Forms.TabControl TabControl1;
+        private System.Windows.Forms.TabPage TabPage1;
+        private System.Windows.Forms.TabPage TabPage2;
+        private System.Windows.Forms.DataGridView DataGridView;
+        private System.Windows.Forms.Label LabelDelinfo;
+        private System.Windows.Forms.Button ButtonAllCancel;
+        private System.Windows.Forms.Label LabelReport;
+        private System.Windows.Forms.TabPage TabPage3;
+        private System.Windows.Forms.Label LabelLanguage;
+        private System.Windows.Forms.ComboBox ComboBoxLanguage;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.RadioButton radioButtonhistoryon;
-        private System.Windows.Forms.RadioButton radioButtonhistoryoff;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button buttonread;
-        private System.Windows.Forms.Label labelOD;
-        private System.Windows.Forms.TextBox textBoxOD;
-        private System.Windows.Forms.Label labelOffset;
-        private System.Windows.Forms.TextBox textBoxHP;
-        private System.Windows.Forms.Label labelHP;
-        private System.Windows.Forms.CheckBox checkBoxSV;
-        private System.Windows.Forms.NumericUpDown numericUpDownOffset;
-        private System.Windows.Forms.CheckBox checkBoxnochange;
-        private System.Windows.Forms.NumericUpDown numericUpDowncount;
-        private System.Windows.Forms.NumericUpDown numericUpDownNum;
-        private System.Windows.Forms.TextBox textBoxHistory;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton RadioButtonHistoryOn;
+        private System.Windows.Forms.RadioButton RadioButtonHistoryOff;
+        private System.Windows.Forms.Label LabelHistory;
+        private System.Windows.Forms.Button Buttonread;
+        private System.Windows.Forms.Label LabelOD;
+        private System.Windows.Forms.TextBox TextBoxOD;
+        private System.Windows.Forms.Label LabelOffset;
+        private System.Windows.Forms.TextBox TextBoxHP;
+        private System.Windows.Forms.Label LabelHP;
+        private System.Windows.Forms.CheckBox CheckBoxSV;
+        private System.Windows.Forms.NumericUpDown NumericUpDownOffset;
+        private System.Windows.Forms.CheckBox CheckBoxNoChange;
+        private System.Windows.Forms.NumericUpDown NumericUpDowncount;
+        private System.Windows.Forms.NumericUpDown NumericUpDownNum;
+        private System.Windows.Forms.PictureBox PictureBox;
+        private System.Windows.Forms.Label LabelBG;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.RadioButton radioButtonpicon;
-        private System.Windows.Forms.RadioButton radioButtonpicoff;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxSongs;
-        private System.Windows.Forms.Button buttonSongs;
+        private System.Windows.Forms.RadioButton RadioButtonPicOn;
+        private System.Windows.Forms.RadioButton RadioButtonPicOff;
+        private System.Windows.Forms.Label LabelSongs;
+        private System.Windows.Forms.TextBox TextBoxSongs;
+        private System.Windows.Forms.Button ButtonSongs;
     }
 }
 
