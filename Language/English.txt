@@ -3,7 +3,7 @@
 3,Settings
 
 4,Base Map
-5,History Lookup
+5,From History
 
 6,Read
 7,Execute

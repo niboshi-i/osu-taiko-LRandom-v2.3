@@ -1,4 +1,4 @@
-osu!taiko LRandom v2.7 readme (日本語/English)
+osu!taiko LRandom v2.8 readme (日本語/English)
 
 
 ～概要～
@@ -32,7 +32,7 @@ osu!taiko LRandom v2.7 readme (日本語/English)
 "制限付きでたらめ"　同じ色のノーツが連続する回数を、指定した数の中からランダムで選びます
 ルールの入力方法　例)2,3,6,2,4　このように半角数字をカンマで区切ってください、この場合だと2連続の配色が40%、3と4と6連続が20%ずつ出ます
 
-"作る数"　同時に複数個作れます、100以上を入れても問題ないです、空欄の場合は1になります
+"作る数"　同時に複数個作れます、100以上を入れても問題ないです
 
 "後ろにつく数字の始点"　()の中の数字がここから始まります　
 
@@ -58,8 +58,6 @@ osu!taiko LRandom v2.7 readme (日本語/English)
 
 履歴の一覧にあるチェックボックスは他の列をクリックしても反応します
 
-左の枠は上が選んだ譜面のファイルの中身、下が追加されたファイルの中身です、必要ないかも
-
 LRandomのLはLimitedが長くて不便なので短くしたものです
 
 
@@ -81,12 +79,12 @@ https://osu.ppy.sh/users/23064382
 までお気軽にご連絡ください！！
 
 
-ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-osu!taiko LRandom v2.6 README (English Translation)
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+osu!taiko LRandom v2.8 README (English Translation)
 
 
 
-~ Overview ~
+== Overview ==
 
 This tool allows you to convert osu!taiko notes to the official "Random" option or its relative, "Limited Random".
 
@@ -95,7 +93,7 @@ Limited Random allows you to randomly select the number of consecutive notes of 
 
 
 
-~ How to use ~
+== How to use ==
 
 1. While on the song selection screen in osu!, press "Load".
 
@@ -111,14 +109,14 @@ or
 
 
 
-~ Settings ~
+== Settings ==
 
 Random: The face (Don) and edge (Ka) notes will appear randomly.
 
 Limited Random: Randomly select the number of consecutive notes of the same color from a specified range.
 How to enter rules: Example) 2,3,6,2,4 Separate half-width numbers with commas like this. In this case, 40% of the 2 consecutive color schemes will appear, and 20% each of the 3, 4, and 6 consecutive color schemes will appear.
 
-Number to create: You can create multiple beatmaps at the same time. There is no problem even if you enter more than 100. If left blank, it will be 1.
+Number to create: You can create multiple beatmaps at the same time. There is no problem even if you enter more than 100.
 
 Starting point of the number attached to the back: The number in () starts from here.
 
@@ -136,7 +134,7 @@ Do not change notes: Disables random etc.
 
 
 
-~ Other ~
+== Other ==
 
 Select from history: Once selected, you can select the beatmap from here.
 
@@ -144,6 +142,14 @@ Even if [Random] etc. is attached to the beatmap before conversion, it will be c
 
 Checkboxes in the history list will react even if you click other columns.
 
-The left frame shows the contents of the selected beatmap file above, and the contents of the added file below. Maybe unnecessary.
-
 LRandom's L is a shortened version of Limited because it is long and inconvenient.
+
+
+
+== Memo ==
+
+Gemini is too convenient :D
+
+If you have any desired functions or bugs, please feel free to contact me at:
+https://osu.ppy.sh/users/23064382
+
