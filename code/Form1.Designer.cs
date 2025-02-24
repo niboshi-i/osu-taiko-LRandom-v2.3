@@ -68,9 +68,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.RadioButtonHistoryOff = new System.Windows.Forms.RadioButton();
             this.RadioButtonHistoryOn = new System.Windows.Forms.RadioButton();
-            this.ButtonSongs = new System.Windows.Forms.Button();
-            this.LabelSongs = new System.Windows.Forms.Label();
-            this.TextBoxSongs = new System.Windows.Forms.TextBox();
             this.LabelBG = new System.Windows.Forms.Label();
             this.LabelHistory = new System.Windows.Forms.Label();
             this.LabelLanguage = new System.Windows.Forms.Label();
@@ -242,7 +239,7 @@
             this.TabControl.SelectedIndex = 0;
             this.TabControl.Size = new System.Drawing.Size(634, 392);
             this.TabControl.TabIndex = 28;
-            this.TabControl.Click += new System.EventHandler(this.TabControl1_Click);
+            this.TabControl.Click += new System.EventHandler(this.TabControl_Click);
             this.TabControl.DragDrop += new System.Windows.Forms.DragEventHandler(this.TabControl_DragDrop);
             this.TabControl.DragEnter += new System.Windows.Forms.DragEventHandler(this.TabControl_DragEnter);
             // 
@@ -545,9 +542,6 @@
             this.TabPage3.BackColor = System.Drawing.SystemColors.Control;
             this.TabPage3.Controls.Add(this.panel2);
             this.TabPage3.Controls.Add(this.panel1);
-            this.TabPage3.Controls.Add(this.ButtonSongs);
-            this.TabPage3.Controls.Add(this.LabelSongs);
-            this.TabPage3.Controls.Add(this.TextBoxSongs);
             this.TabPage3.Controls.Add(this.LabelBG);
             this.TabPage3.Controls.Add(this.LabelHistory);
             this.TabPage3.Controls.Add(this.LabelLanguage);
@@ -623,38 +617,6 @@
             this.RadioButtonHistoryOn.Text = "残す";
             this.RadioButtonHistoryOn.UseVisualStyleBackColor = true;
             // 
-            // ButtonSongs
-            // 
-            this.ButtonSongs.Location = new System.Drawing.Point(431, 184);
-            this.ButtonSongs.Name = "ButtonSongs";
-            this.ButtonSongs.Size = new System.Drawing.Size(86, 31);
-            this.ButtonSongs.TabIndex = 11;
-            this.ButtonSongs.Text = "参照";
-            this.ButtonSongs.UseVisualStyleBackColor = true;
-            this.ButtonSongs.Visible = false;
-            this.ButtonSongs.Click += new System.EventHandler(this.ButtonSongs_Click);
-            // 
-            // LabelSongs
-            // 
-            this.LabelSongs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelSongs.Location = new System.Drawing.Point(28, 187);
-            this.LabelSongs.Name = "LabelSongs";
-            this.LabelSongs.Size = new System.Drawing.Size(147, 24);
-            this.LabelSongs.TabIndex = 10;
-            this.LabelSongs.Text = "Songsフォルダー";
-            this.LabelSongs.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.LabelSongs.Visible = false;
-            // 
-            // TextBoxSongs
-            // 
-            this.TextBoxSongs.Location = new System.Drawing.Point(181, 184);
-            this.TextBoxSongs.Name = "TextBoxSongs";
-            this.TextBoxSongs.ReadOnly = true;
-            this.TextBoxSongs.Size = new System.Drawing.Size(244, 31);
-            this.TextBoxSongs.TabIndex = 9;
-            this.TextBoxSongs.Visible = false;
-            this.TextBoxSongs.TextChanged += new System.EventHandler(this.TextBoxSongs_TextChanged);
-            // 
             // LabelBG
             // 
             this.LabelBG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -702,13 +664,12 @@
             this.ClientSize = new System.Drawing.Size(634, 392);
             this.Controls.Add(this.TabControl);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(702, 472);
+            this.MaximumSize = new System.Drawing.Size(650, 431);
             this.MinimumSize = new System.Drawing.Size(650, 431);
             this.Name = "Form1";
-            this.Text = "osu!taiko LRandom v2.8";
+            this.Text = "osu!taiko LRandom v2.8.1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.TabControl.ResumeLayout(false);
             this.TabPage1.ResumeLayout(false);
             this.TabPage1.PerformLayout();
@@ -722,7 +683,6 @@
             this.TabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView)).EndInit();
             this.TabPage3.ResumeLayout(false);
-            this.TabPage3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -770,9 +730,6 @@
         private System.Windows.Forms.Label LabelBG;
         private System.Windows.Forms.RadioButton RadioButtonPicOn;
         private System.Windows.Forms.RadioButton RadioButtonPicOff;
-        private System.Windows.Forms.Label LabelSongs;
-        private System.Windows.Forms.TextBox TextBoxSongs;
-        private System.Windows.Forms.Button ButtonSongs;
         private System.Windows.Forms.CheckBox CheckBoxOriginalDiff;
         private System.Windows.Forms.NumericUpDown NumericUpDownOD;
         private System.Windows.Forms.CheckBox CheckBoxOD;

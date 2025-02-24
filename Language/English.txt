@@ -38,8 +38,7 @@
 42,Completed!
 
 51,osu! Is Not Running ><
-52,Song Folder Not Found ><
-53,May Be Fixed by Setting Songs Folder in Settings ><
+
 54,Oops! Looks like you haven't picked a map yet ><
 55,Please enter the trailing numbers using half-width characters ><
 56,Map Data May Be Incomplete ><

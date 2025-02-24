@@ -23,11 +23,11 @@ namespace taiko
     {
         private readonly StructuredOsuMemoryReader _sreader = new StructuredOsuMemoryReader();
         private readonly OsuBaseAddresses _baseAddresses = new OsuBaseAddresses();
+        private string _SongsPath; // songsフォルダのパス
         private string _filePath; // .osuファイルのパス
         private string _beforfilePath; // .osuファイルがあるフォルダのパス
-        private string[,] _Language;
-        private string _History;
-        private string _TextBoxBeforMapDate;
+        private string[,] _Language; // 選択された言語ファイルの中身
+        private string _History; // Json形式の履歴
 
         public Form1()
         {
@@ -46,92 +46,29 @@ namespace taiko
                 return; // osu! が起動していなければ、処理を中断
             }
 
-            // osu.exeのパス
+            // Songsフォルダのパスを取得
             string osuPath = Path.GetDirectoryName(processes[0].MainModule.FileName);
+            SetSongsPath(osuPath);
+            processes[0].Dispose();
 
-            // Songsフォルダーのパス Todo osu.(ユーザー名).cfgから取得するようにする?
-            string songsPath = osuPath + "\\Songs";
-
-            //　Songsフォルダーを移動している場合はパスを入れてもらう
-            if (TextBoxSongs.Text != "")
-            {
-                songsPath = TextBoxSongs.Text;
-            }
-
-            // songsフォルダーが存在するか確認
-            if (!Directory.Exists(songsPath))
-            {
-                MessageBox.Show($"{GetWord("52")}/n{GetWord("53")}", "", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                ButtonSongs.Visible = true;
-                LabelSongs.Visible = true;
-                TextBoxSongs.Visible = true;
-                return;
-            }
-
+            // .osuファイルのパスを取得
             _sreader.TryRead(_baseAddresses.Beatmap);
 
-            // .osuファイルのパス
-            string filePath = Path.Combine(songsPath ?? "", _baseAddresses.Beatmap.FolderName ?? "",
+            string filePath = Path.Combine(_SongsPath ?? "", _baseAddresses.Beatmap.FolderName ?? "",
                         _baseAddresses.Beatmap.OsuFileName ?? "");
 
             // テキストボックスにファイル名を表示
             string fileName = Path.GetFileName(filePath);
             TextBoxSelectedMap.Text = fileName;
 
-
-            string data = File.ReadAllText(filePath);
-
-            _TextBoxBeforMapDate = data;
+            // 譜面のデータをフィールドに保存
             _filePath = filePath;
 
             string beforfilePath = filePath.Substring(0, filePath.LastIndexOf('\\'));
             _beforfilePath = beforfilePath;
 
-
-            // 古い画像があれば消す
-            PictureBox.Image = null;
-
-            // 必要なら画像を読み取る
-            if (RadioButtonPicOn.Checked)
-            {
-                OsuParsers.Beatmaps.Beatmap beatmapData = BeatmapDecoder.Decode(filePath);
-
-                string bgPath = Path.Combine(songsPath ?? "", _baseAddresses.Beatmap.FolderName ?? "",
-                            beatmapData.EventsSection.BackgroundImage ?? "");
-
-                try
-                {
-                    Bitmap bmp = new Bitmap(bgPath);
-                    const int resizeWidth = 110; // リサイズ後の幅を110に設定
-                    int resizeHeight = (int)(bmp.Height * ((double)resizeWidth / bmp.Width));
-
-                    Bitmap resizeBmp = new Bitmap(resizeWidth, resizeHeight);
-                    Graphics graphics = Graphics.FromImage(resizeBmp);
-                    graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                    graphics.DrawImage(bmp, 0, 0, resizeWidth, resizeHeight); // 描画位置調整
-                    graphics.Dispose();
-
-                    const double darknessFactor = 0.7;
-                    for (int y = 0; y < resizeHeight; y++)
-                    {
-                        for (int x = 0; x < resizeWidth; x++)
-                        {
-                            Color pixel = resizeBmp.GetPixel(x, y);
-                            int r = (int)(pixel.R * darknessFactor);
-                            int g = (int)(pixel.G * darknessFactor);
-                            int b = (int)(pixel.B * darknessFactor);
-                            Color darkPixel = Color.FromArgb(r, g, b);
-                            resizeBmp.SetPixel(x, y, darkPixel);
-                        }
-                    }
-                    PictureBox.Image = resizeBmp;
-                }
-                catch
-                {
-                    System.Drawing.Image noimage = System.Drawing.Image.FromFile(@"no image.png");
-                    PictureBox.Image = noimage;
-                }
-            }
+            // 画像をセット
+            SetImage();
 
             // 履歴がオフになっている場合はコンボボックスやデータテーブルに関与しない
             if (RadioButtonHistoryOff.Checked)
@@ -184,17 +121,31 @@ namespace taiko
 
             LabelReport.Text = $"{GetWord("41")}";
 
-            // 譜面が選択されていなければメッセージボックスを出してプログラムを終了
-            if (_TextBoxBeforMapDate == null)
+
+            // 譜面が選択されていなければエラー
+            if(_filePath == null)
             {
                 MessageBox.Show($"{GetWord("54")}", "", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 LabelReport.Text = "";
 
                 return;
             }
+            // 譜面が消えているか、ファイル名が変わっていたらエラー
+            if (!File.Exists(_filePath))
+            {
+                MessageBox.Show($"{GetWord("76")}", "", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                LabelReport.Text = "";
 
-            // 入力されたデータの文字列の後ろ部分が空白や改行だった場合それを削除して、string型の配列にする Todoエラー
-            List<string> lines = _TextBoxBeforMapDate.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None).ToList();
+                return;
+            }
+
+
+            // .osuファイルの中身
+            string BaseMapDate = File.ReadAllText(_filePath);
+
+
+            // 入力されたデータの文字列の後ろ部分が空白や改行だった場合それを削除して、string型の配列にする Todoエラー?
+            List<string> lines = BaseMapDate.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None).ToList();
 
             for (int i = lines.Count - 1; i >= 0; i--)
             {
@@ -210,7 +161,6 @@ namespace taiko
 
             string[] result = lines.ToArray();
 
-         
 
             // カッコの中の数字部分
             int part2 = 1;
@@ -387,42 +337,53 @@ namespace taiko
             diffname = Regex.Replace(diffname, @"(.*)\[(OD.* HP.*?|OD.*?|HP.*?)\](.*)$", "$1$3");
 
 
+            // Timingの範囲を[Corors]の有無によって変える
+            int timingcount;
+            int coloursnum = Array.IndexOf(result, "[Colours]");
+            if (coloursnum != -1)
+            {
+                timingcount = hitnum - coloursnum - 1;
+            }
+            else
+            {
+                timingcount = hitnum - timingnum - 1;
+            }
 
             // オフセットの処理
             string newoffset = "";
             if (NumericUpDownOffset.Value.ToString() != "0")
             {
-                List<string> changeoffset1 = result.Skip(hitnum + 1).ToList();
-                List<string> changeoffset20 = result.Skip(timingnum + 1).Take(hitnum - timingnum - 1).ToList();
-                List<string> changeoffset21 = changeoffset20.Where(s => !string.IsNullOrEmpty(s)).ToList();
+                List<string> HitObjectPart = result.Skip(hitnum + 1).ToList();
+                List<string> TimingPart0 = result.Skip(timingnum + 1).Take(timingcount).ToList();
+                List<string> TimingPart = TimingPart0.Where(s => !string.IsNullOrEmpty(s)).ToList();
 
                 int offsetText = int.Parse(NumericUpDownOffset.Value.ToString());
 
                 // hitobjectの時間をずらす
-                for (int i = 0; i < changeoffset1.Count; i++)
+                for (int i = 0; i < HitObjectPart.Count; i++)
                 {
-                    string[] values = changeoffset1[i].Split(',');
+                    string[] values = HitObjectPart[i].Split(',');
                     int oldoffset = int.Parse(values[2]);
                     string offset = (oldoffset + offsetText).ToString();
                     values[2] = offset;
-                    changeoffset1[i] = string.Join(",", values);
+                    HitObjectPart[i] = string.Join(",", values);
                 }
 
                 // timingの時間をずらす
-                for (int i = 0; i < changeoffset21.Count; i++)
+                for (int i = 0; i < TimingPart.Count; i++)
                 {
-                    string[] values = changeoffset21[i].Split(',');
+                    string[] values = TimingPart[i].Split(',');
                     int oldoffset = int.Parse(values[0]);
                     string offset = (oldoffset + offsetText).ToString();
                     values[0] = offset;
-                    changeoffset21[i] = string.Join(",", values);
+                    TimingPart[i] = string.Join(",", values);
                 }
 
                 // resultに変更を反映
-                result = result.Take(hitnum + 1).Concat(changeoffset1).ToArray();
+                result = result.Take(hitnum + 1).Concat(HitObjectPart).ToArray();
 
-                changeoffset21.AddRange(Enumerable.Repeat("", 2));
-                result = result.Take(timingnum + 1).Concat(changeoffset21).Concat(result.Skip(hitnum)).ToArray();
+                TimingPart.AddRange(Enumerable.Repeat("", 2));
+                result = result.Take(timingnum + 1).Concat(TimingPart).Concat(result.Skip(hitnum)).ToArray();
 
                 string offsetreg = @"\[offset([+\-]\d+)]";
                 bool offsetexist = Regex.IsMatch(diffname, offsetreg);
@@ -459,7 +420,7 @@ namespace taiko
             string newnoSV = "";
             if (CheckBoxSV.Checked)
             {
-                string[] timingonly = result.Skip(timingnum + 1).Take(hitnum - timingnum - 1).ToArray();
+                string[] timingonly = result.Skip(timingnum + 1).Take(timingcount).ToArray();
 
                 // 各行を処理
                 for (int i = 0; i < hitnum - timingnum - 1; i++)
@@ -605,16 +566,21 @@ namespace taiko
 
             // bigノーツの行番号取得
             List<int> big = new List<int>();
+            List<int> big2 = new List<int>();
 
             for (int i = 0; i < noteonly.Length; i++)
             {
-                string[] big2 = noteonly[i].Split(',');
+                string[] line = noteonly[i].Split(',');
 
                 try
                 {
-                    if (big2[4] == "4" || big2[4] == "6")
+                    if (line[4] == "4" || line[4] == "6")
                     {
                         big.Add(i);
+                    }
+                    else if (line[4] == "12")
+                    {
+                        big2.Add(i);
                     }
                 }
                 catch
@@ -767,9 +733,15 @@ namespace taiko
                     // bigノーツに変換
                     for (int x = 0; x < big.Count; x++)
                     {
-                        List<string> big3 = new List<string>(randomafter[big[x]].Split(','));
-                        big3[4] = big3[4] == "0" ? "4" : (big3[4] == "2" ? "6" : big3[4]); // 三項演算子で判定
-                        randomafter[big[x]] = string.Join(",", big3);
+                        List<string> line = new List<string>(randomafter[big[x]].Split(','));
+                        line[4] = line[4] == "0" ? "4" : "6";
+                        randomafter[big[x]] = string.Join(",", line);
+                    }
+                    for (int x = 0; x < big2.Count; x++)
+                    {
+                        List<string> line = new List<string>(randomafter[big2[x]].Split(','));
+                        line[4] = line[4] == "0" ? "4" : "12";
+                        randomafter[big2[x]] = string.Join(",", line);
                     }
                 }
                 else
@@ -833,12 +805,12 @@ namespace taiko
         private void Form1_Load(object sender, EventArgs e) // ロード時の処理
         {
             // 保存された設定
-            string set = ConfigurationManager.AppSettings["key4"];
+            string set = ConfigurationManager.AppSettings["Settings"];
 
             if (set != "")
             {
                 // 言語設定の適応
-                string selectlang = ConfigurationManager.AppSettings["key3"];
+                string selectlang = ConfigurationManager.AppSettings["Language"];
                 SetLanguage(selectlang);
 
                 // 保存された設定の適応
@@ -863,11 +835,6 @@ namespace taiko
             }
             else
             {
-                // RadioButtonR.Checked = true;
-                // RadioButtonHistoryOn.Checked = true;
-                // RadioButtonPicOn.Checked = true;
-
-
                 // 最初の言語選択フォーム
                 using (CustomDialog firstlanguage = new CustomDialog())
                 {
@@ -878,7 +845,7 @@ namespace taiko
                         SetLanguage(selectedValue);
 
                         // 選んだ言語をconjigに保存
-                        ConfigSave("key3", selectedValue);
+                        ConfigSave("Language", selectedValue);
                     }
                     else
                     {
@@ -886,7 +853,7 @@ namespace taiko
                         System.Windows.Forms.Application.Exit();
 
                         // 設定が保存されないようにして、次開いた時も言語選択フォームを開くようにする
-                        ConfigSave("key4", "");
+                        ConfigSave("Settings", "");
                     }
                 }
 
@@ -919,25 +886,13 @@ namespace taiko
         }
 
 
-        private void ComboBoxFromHistory_SelectionChangeCommitted(object sender, EventArgs e)
+        private void ComboBoxFromHistory_SelectionChangeCommitted(object sender, EventArgs e) // 履歴から選ばれたとき
         {
             if (ComboBoxFromHistory.SelectedItem is DataRowView selectedRow) // DataRowView型であることを確認
             {
                 string name = selectedRow["name"].ToString();
                 string filePath = selectedRow["path"].ToString();
 
-                try
-                {
-                    string data = File.ReadAllText(filePath);
-                    _TextBoxBeforMapDate = data;
-                }
-                catch
-                {
-                    MessageBox.Show($"{GetWord("76")}", "",
-                      MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    LabelReport.Text = "";
-                    return;
-                }
 
                 TextBoxSelectedMap.Text = name;
 
@@ -946,6 +901,29 @@ namespace taiko
 
                 string beforfilePath = filePath.Substring(0, filePath.LastIndexOf('\\'));
                 _beforfilePath = beforfilePath;
+
+                if (RadioButtonPicOn.Checked)
+                {
+                    Process[] processes = Process.GetProcessesByName("osu!");
+
+                    if (processes.Length != 0)
+                    {                     
+                        string osuPath = Path.GetDirectoryName(processes[0].MainModule.FileName);
+                        SetSongsPath(osuPath);
+                        processes[0].Dispose();
+                    }
+
+                    if (_SongsPath != null && Directory.Exists(_SongsPath))
+                    {
+                        SetImage();
+                    }
+                    else
+                    {
+                        PictureBox.Image = null;
+                    }
+                }
+
+                LabelReport.Text = "";
             }
         }
 
@@ -1010,7 +988,7 @@ namespace taiko
         }
 
 
-        private void TabControl1_Click(object sender, EventArgs e)
+        private void TabControl_Click(object sender, EventArgs e) // タブ移動時
         {
             // 履歴を取得
             string log = _History;
@@ -1024,83 +1002,18 @@ namespace taiko
             }
         }
 
-
-        private void Form1_DragDrop(object sender, DragEventArgs e) // .osuファイルがドロップされたとき
-        {         
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (files.Length > 0)
-            {
-                string filePath = files[0];
-
-                // テキストボックスにファイル名を表示
-                string fileName = Path.GetFileName(filePath);
-                TextBoxSelectedMap.Text = fileName;
-
-                // 中身を表示
-                string data = File.ReadAllText(filePath);
-                _TextBoxBeforMapDate = data;
-
-                // フィールドにもセット
-                _filePath = filePath;
-
-                string beforfilePath = filePath.Substring(0, filePath.LastIndexOf('\\'));
-                _beforfilePath = beforfilePath;
-
-                // 履歴がオフになっている場合はコンボボックスやデータテーブルに関与しない
-                if (RadioButtonHistoryOff.Checked)
-                {
-                    return;
-                }
-
-                // 履歴を取得
-                string log = _History;
-
-                // 履歴が無ければ新しくデータテーブルを作る
-                if (log == "[]")
-                {
-                    DataTable dataTable = new DataTable();
-                    dataTable.Columns.AddRange(new DataColumn[] { new DataColumn("path"), new DataColumn("name") });
-
-                    dataTable.Rows.Add(new object[] { filePath, fileName });
-
-                    string json = JsonConvert.SerializeObject(dataTable);
-
-                    _History = json;
-
-                    DataTableSet(dataTable);
-
-                }
-                else // 履歴がすでにある場合はデータテーブルに変換してコンボボックスに表示
-                {
-                    DataTable dataTable = MakeDataTable(log);
-
-                    dataTable.Rows.Add(dataTable.NewRow()["path"] = filePath, dataTable.NewRow()["name"] = fileName);
-
-                    string json = JsonConvert.SerializeObject(dataTable);
-
-                    _History = json;
-
-                    ComboBoxFromHistory.DataSource = dataTable;
-                    ComboBoxFromHistory.DisplayMember = "name";
-                    ComboBoxFromHistory.ValueMember = "path";
-                }
-            }
-        }
-
-
-        private void DataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_CellClick(object sender, DataGridViewCellEventArgs e) // 履歴の表でクリックしたときに削除列にチェック
         {
             if (e.ColumnIndex >= 0 && DataGridView.Columns[e.ColumnIndex].Name != "chkDelete" && e.RowIndex >= 0)
             {
                 // チェックボックス列以外のセルがクリックされた場合
                 DataGridViewCheckBoxCell chkCell = DataGridView.Rows[e.RowIndex].Cells["chkDelete"] as DataGridViewCheckBoxCell;
                 chkCell.Value = !Convert.ToBoolean(chkCell.Value);
-
             }
         }
 
 
-        private void ComboBoxLanguage_SelectionChangeCommitted(object sender, EventArgs e)// 言語が選択されたとき
+        private void ComboBoxLanguage_SelectionChangeCommitted(object sender, EventArgs e) // 言語が選択されたとき
         {
             //選択された言語名を取得
             string selectlang = ComboBoxLanguage.Text;
@@ -1150,7 +1063,7 @@ namespace taiko
             }
 
             // 保存したデータ
-            _History = backup; ;
+            _History = backup;
 
             // 履歴があるか
             string log = _History;
@@ -1165,37 +1078,14 @@ namespace taiko
             }
 
             // 選んだ言語をconjigに保存
-            ConfigSave("key3", selectlang);
+            ConfigSave("Language", selectlang);
         }
 
 
-        private void CheckBoxNoChange_CheckedChanged(object sender, EventArgs e) // 変更しないででたらめ等を選択できなくする
+        private void CheckBoxNoChange_CheckedChanged(object sender, EventArgs e) // "ノーツを変えない"のときにでたらめ系を選択できなくする
         {
             RadioButtonR.Enabled = !CheckBoxNoChange.Checked;
             RadioButtonLR.Enabled = !CheckBoxNoChange.Checked;
-        }
-
-
-        private void ButtonSongs_Click(object sender, EventArgs e) // 参照
-        {
-            FolderBrowserDialog dig = new FolderBrowserDialog
-            {
-                Description = $"{GetWord("78")}"
-            };
-
-            if (dig.ShowDialog() == DialogResult.OK)
-            {
-                // ファイルが選択された場合の処理
-                string SongsPath = dig.SelectedPath;
-
-                TextBoxSongs.Text = SongsPath;
-            }
-        }
-
-
-        private void TextBoxSongs_TextChanged(object sender, EventArgs e) // songsフォルダーのパスをセット
-        {
-            ConfigSave("key1", TextBoxSongs.Text);
         }
 
 
@@ -1209,7 +1099,7 @@ namespace taiko
         }
 
 
-        private void TabControl_DragEnter(object sender, DragEventArgs e) // ファイルがドラッグアンドドロップされたとき
+        private void TabControl_DragEnter(object sender, DragEventArgs e) // ファイルがドラッグされたとき
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -1222,19 +1112,95 @@ namespace taiko
                 e.Effect = DragDropEffects.None;
             }
         }
-        private void TabControl_DragDrop(object sender, DragEventArgs e)
+
+        private void TabControl_DragDrop(object sender, DragEventArgs e) // .osuファイルがドロップされたとき
         {
-            Form1_DragDrop(sender, e);
-            if (TabControl.SelectedTab == TabPage2) // 履歴でドロップしていたらコンボボックスと表を更新
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length > 0)
             {
-                TabControl1_Click(sender, e);
+                string filePath = files[0];
+
+                // テキストボックスにファイル名を表示
+                string fileName = Path.GetFileName(filePath);
+                TextBoxSelectedMap.Text = fileName;
+
+                // フィールドにもセット
+                 _filePath = filePath;
+
+                string beforfilePath = filePath.Substring(0, filePath.LastIndexOf('\\'));
+                _beforfilePath = beforfilePath;
+
+                // 画像を表示
+                if (RadioButtonPicOn.Checked)
+                {
+                    Process[] processes = Process.GetProcessesByName("osu!");
+
+                    if (processes.Length != 0)
+                    {
+                        string osuPath = Path.GetDirectoryName(processes[0].MainModule.FileName);
+                        SetSongsPath(osuPath);
+                        processes[0].Dispose();
+                    }
+
+                    if (_SongsPath != null && Directory.Exists(_SongsPath))
+                    {
+                        SetImage();
+                    }
+                    else
+                    {
+                        PictureBox.Image = null;
+                    }
+                }
+
+                // 履歴がオフになっている場合はコンボボックスやデータテーブルに関与しない
+                if (RadioButtonHistoryOff.Checked)
+                {
+                    return;
+                }
+
+                // 履歴を取得
+                string log = _History;
+
+                // 履歴が無ければ新しくデータテーブルを作る
+                if (log == "[]")
+                {
+                    DataTable dataTable = new DataTable();
+                    dataTable.Columns.AddRange(new DataColumn[] { new DataColumn("path"), new DataColumn("name") });
+
+                    dataTable.Rows.Add(new object[] { filePath, fileName });
+
+                    string json = JsonConvert.SerializeObject(dataTable);
+
+                    _History = json;
+
+                    DataTableSet(dataTable);
+
+                }
+                else // 履歴がすでにある場合はデータテーブルに変換してコンボボックスに表示
+                {
+                    DataTable dataTable = MakeDataTable(log);
+
+                    dataTable.Rows.Add(dataTable.NewRow()["path"] = filePath, dataTable.NewRow()["name"] = fileName);
+
+                    string json = JsonConvert.SerializeObject(dataTable);
+
+                    _History = json;
+
+                    ComboBoxFromHistory.DataSource = dataTable;
+                    ComboBoxFromHistory.DisplayMember = "name";
+                    ComboBoxFromHistory.ValueMember = "path";
+                }
+
+                if (TabControl.SelectedTab == TabPage2) // 履歴でドロップしていたらコンボボックスと表を更新
+                {
+                    TabControl_Click(sender, e);
+                }
             }
         }
 
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) // フォームを閉じたとき
         {
-            // アプリケーション終了時に実行したい処理
             string[] setting = {
                 RadioButtonR.Checked ? "true" : "false", // でたらめか
                 TextBoxRule.Text, // 制限付きでたらめのルール
@@ -1249,11 +1215,10 @@ namespace taiko
                 CheckBoxOverwrite.Checked ? "true" : "false", // 上書きする
                 RadioButtonHistoryOn.Checked ? "true" : "false", // 履歴を残すか
                 RadioButtonPicOn.Checked ? "true" : "false", // 背景を読み込むか
-              
             };
 
             string json = JsonConvert.SerializeObject(setting);
-            ConfigSave("key4", json);
+            ConfigSave("Settings", json);
 
             using (StreamWriter writer = File.CreateText(@"History.txt"))
             {
@@ -1270,6 +1235,78 @@ namespace taiko
         }
 
 
+
+
+
+        private void SetImage()
+        {
+            // 古い画像があれば消す
+            PictureBox.Image = null;
+
+            // 必要なら画像を読み取る
+            if (RadioButtonPicOn.Checked)
+            {
+                OsuParsers.Beatmaps.Beatmap beatmapData = BeatmapDecoder.Decode(_filePath);
+
+                string bgPath = Path.Combine(_beforfilePath ?? "", beatmapData.EventsSection.BackgroundImage ?? "");
+
+                try
+                {
+                    Bitmap bmp = new Bitmap(bgPath);
+                    const int resizeWidth = 110; // リサイズ後の幅を110に設定
+                    int resizeHeight = (int)(bmp.Height * ((double)resizeWidth / bmp.Width));
+
+                    Bitmap resizeBmp = new Bitmap(resizeWidth, resizeHeight);
+                    Graphics graphics = Graphics.FromImage(resizeBmp);
+                    graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                    graphics.DrawImage(bmp, 0, 0, resizeWidth, resizeHeight); // 描画位置調整
+                    graphics.Dispose();
+
+                    const double darknessFactor = 0.75;
+                    for (int y = 0; y < resizeHeight; y++)
+                    {
+                        for (int x = 0; x < resizeWidth; x++)
+                        {
+                            Color pixel = resizeBmp.GetPixel(x, y);
+                            int r = (int)(pixel.R * darknessFactor);
+                            int g = (int)(pixel.G * darknessFactor);
+                            int b = (int)(pixel.B * darknessFactor);
+                            Color darkPixel = Color.FromArgb(r, g, b);
+                            resizeBmp.SetPixel(x, y, darkPixel);
+                        }
+                    }
+                    PictureBox.Image = resizeBmp;
+                }
+                catch
+                {
+                    System.Drawing.Image noimage = System.Drawing.Image.FromFile(@"no image.png");
+                    PictureBox.Image = noimage;
+                }
+            }
+        }
+
+
+        private void SetSongsPath(string osuPath)
+        {
+            // Songsフォルダーのパスを取得
+            if (_SongsPath == null || !Directory.Exists(_SongsPath))
+            {
+                string userName = Environment.UserName;
+                string file = Path.Combine(osuPath, $"osu!.{userName}.cfg");
+
+                foreach (string readLine in File.ReadLines(file))
+                {
+                    if (!readLine.StartsWith("BeatmapDirectory")) continue;
+                    string path = readLine.Split('=')[1].Trim(' ');
+                    _SongsPath = path == "Songs" ? Path.Combine(osuPath, "Songs") : path;
+                }
+
+                if (_SongsPath == null)
+                {
+                    _SongsPath = Path.Combine(osuPath, "Songs");
+                }
+            }
+        }
 
 
         private int LanguageErrorCount = 0;
@@ -1452,9 +1489,7 @@ namespace taiko
                 { RadioButtonHistoryOff, "25" },
                 { LabelBG, "26" },
                 { RadioButtonPicOn, "27" },
-                { RadioButtonPicOff, "28" },
-                { LabelSongs, "29" },
-                { ButtonSongs, "30" }
+                { RadioButtonPicOff, "28" }
             };
 
             // Dictionaryを使ってループ処理
@@ -1465,4 +1500,3 @@ namespace taiko
         }
     }
 }
-

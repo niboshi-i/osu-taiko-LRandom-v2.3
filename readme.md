@@ -1,3 +1,7 @@
+
+![](images/readmepic.png)
+
+
 osu!taiko LRandom v2.8 readme (日本語/English)
 
 
@@ -5,21 +9,13 @@ osu!taiko LRandom v2.8 readme (日本語/English)
 
 このツールでは、osu!taikoのノーツを本家のオプション"でたらめ"や、でたらめの親戚"制限付きでたらめ"に変換することができます
 
-制限付きでたらめとは・・・同じ色のノーツが連続する回数を、指定した数の中からランダムで選びます、他にいい名前があれば教えてください><
+制限付きでたらめとは・・・同じ色のノーツが連続する回数を、指定した数の中からランダムで選びます
 
 
 
 ～使い方～
 
-１、osuの選曲画面にいる状態で"読み込む"を押してください
-
-２、好みの設定に変更して"実行"を押してください、選んだ譜面があるフォルダーに自動で追加されます
-
-
-もしくは
-
-
-１、osuの曲選択画面で譜面を右クリックし、「編集」を選択して、Edit画面のメニューバーから「ファイル」>「フォルダーを開く」を選択して、.osuファイルをこのソフトにドラッグ＆ドロップしてください
+１、osuの選曲画面にいる状態で"読み込む"を押すか、.osuファイルをこのソフトにドラッグ＆ドロップしてください
 
 ２、好みの設定に変更して"実行"を押してください、選んだ譜面があるフォルダーに自動で追加されます
 
@@ -42,11 +38,11 @@ osu!taiko LRandom v2.8 readme (日本語/English)
 
 "OD HP"　ODとHPを変えられます
 
-"offset"　オフセットを変えられます
+"offset"　オフセットを変えられます、プラスでノーツの位置が後ろに移動します
 
 "noSV"　SVを無効化できます
 
-"ノーツを変えない"　でたらめ等を無効にします
+"ノーツを変えない"　でたらめ系の設定を無効にします
 
 
 
@@ -89,21 +85,13 @@ osu!taiko LRandom v2.8 README (English Translation)
 This tool allows you to convert osu!taiko notes to the official "Random" option or its relative, "Limited Random".
 
 What is Limited Random?
-Limited Random allows you to randomly select the number of consecutive notes of the same color from a specified range. If you have any better name suggestions, please let me know! > <
+Limited Random allows you to randomly select the number of consecutive notes of the same color from a specified range.
 
 
 
 == How to use ==
 
-1. While on the song selection screen in osu!, press "Load".
-
-2. Change the settings to your liking and press "Execute". The converted beatmap will be automatically added to the folder where the selected beatmap is located.
-
-
-or
-
-
-1. On the song selection screen in osu!, right-click the beatmap and select "Edit". In the Edit screen, from the menu bar, select "File" > "Open Folder". Drag and drop the .osu file into this software.
+1. While on the song selection screen in osu!, press "Load" or Drag and drop the .osu file into this software
 
 2. Change the settings to your liking and press "Execute". The converted beatmap will be automatically added to the folder where the selected beatmap is located.
 
