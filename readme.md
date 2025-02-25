@@ -1,25 +1,20 @@
-  
-![noimage](images/readmepic.png)
-  
+<br>
 
-osu!taiko LRandom v2.8 readme (日本語/English)
-  
-  
+![noimages](Images/readmepic.png)<br><br>
+
+osu!taiko LRandom v2.8 readme (日本語/English)<br><br><br>
+
 ～概要～
 
-このツールでは、osu!taikoのノーツを本家のオプション"でたらめ"や、でたらめの親戚"制限付きでたらめ"に変換することができます
+このツールでは、osu!taikoのノーツを本家のオプション"でたらめ"や、でたらめの親戚"制限付きでたらめ"に変換することができます                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
-制限付きでたらめとは・・・同じ色のノーツが連続する回数を、指定した数の中からランダムで選びます
-  
-  
+制限付きでたらめとは・・・同じ色のノーツが連続する回数を、指定した数の中からランダムで選びます<br><br><br>
 
 ～使い方～
 
 １、osuの選曲画面にいる状態で"読み込む"を押すか、.osuファイルをこのソフトにドラッグ＆ドロップしてください
 
-２、好みの設定に変更して"実行"を押してください、選んだ譜面があるフォルダーに自動で追加されます
-  
-
+２、好みの設定に変更して"実行"を押してください、選んだ譜面があるフォルダーに自動で追加されます<br><br><br>
 
 ～設定～
 
@@ -42,9 +37,7 @@ osu!taiko LRandom v2.8 readme (日本語/English)
 
 "noSV"　SVを無効化できます
 
-"ノーツを変えない"　でたらめ系の設定を無効にします
-  
-
+"ノーツを変えない"　でたらめ系の設定を無効にします<br><br><br>
 
 ～その他～
 
@@ -54,89 +47,74 @@ osu!taiko LRandom v2.8 readme (日本語/English)
 
 履歴の一覧にあるチェックボックスは他の列をクリックしても反応します
 
-LRandomのLはLimitedが長くて不便なので短くしたものです
-  
-
+LRandomのLはLimitedが長くて不便なので短くしたものです<br><br><br>
 
 ～今後の予定～
 
 マルチで簡単にでたらめ譜面を投げられるようにしたい
 
-メモリの負荷を軽くしたい
+メモリの負荷を軽くしたい<br><br><br>
   
-
-
 ～メモ～
   
 gemini便利すぎる
   
 欲しい機能やバグなどありましたら
 https://osu.ppy.sh/users/23064382
-までお気軽にご連絡ください！！
-  
+までお気軽にご連絡ください！！<br><br>
 
-ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-osu!taiko LRandom v2.8 README (English Translation)
-  
-
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー<br>
+osu!taiko LRandom v2.8 README (English Translation)<br><br><br>
 
 == Overview ==
   
 This tool allows you to convert osu!taiko notes to the official "Random" option or its relative, "Limited Random".
 
 What is Limited Random?
-Limited Random allows you to randomly select the number of consecutive notes of the same color from a specified range.
-  
-
+Limited Random allows you to randomly select the number of consecutive notes of the same color from a specified range.<br><br><br>
 
 == How to use ==
   
-1. While on the song selection screen in osu!, press "Load" or Drag and drop the .osu file into this software
+1.While on the song selection screen in osu!, press "Load" or Drag and drop the .osu file into this software
 
-2. Change the settings to your liking and press "Execute". The converted beatmap will be automatically added to the folder where the selected beatmap is located.
-
-  
+2.Change the settings to your liking and press "Execute". The converted beatmap will be automatically added to the folder where the selected beatmap is located.<br><br><br>
 
 == Settings ==
-  
+
 Random: The face (Don) and edge (Ka) notes will appear randomly.
-  
+
 Limited Random: Randomly select the number of consecutive notes of the same color from a specified range.
 How to enter rules: Example) 2,3,6,2,4 Separate half-width numbers with commas like this. In this case, 40% of the 2 consecutive color schemes will appear, and 20% each of the 3, 4, and 6 consecutive color schemes will appear.
-  
-Number to create: You can create multiple beatmaps at the same time. There is no problem even if you enter more than 100.
-  
-Starting point of the number attached to the back: The number in () starts from here.
-  
-Do not leave the original difficulty name in the generated beatmap: If the difficulty name becomes too long, it may be cut off from the song selection screen.
-  
-Overwrite if a file with the same name already exists: If you overwrite, nothing will appear on the song selection screen, but the new beatmap will be available when you play. If this is not checked, the number after the original beatmap will be incremented by +1 until the existing beatmap is gone.
-  
-OD HP: You can change OD and HP.
-  
-offset: You can change offset.
-  
-noSV: You can disable SV
-  
-Do not change notes: Disables random etc.
-  
 
+Number to create: You can create multiple beatmaps at the same time. There is no problem even if you enter more than 100.
+
+Starting point of the number attached to the back: The number in () starts from here.
+
+Do not leave the original difficulty name in the generated beatmap: If the difficulty name becomes too long, it may be cut off from the song selection screen.
+
+Overwrite if a file with the same name already exists: If you overwrite, nothing will appear on the song selection screen, but the new beatmap will be available when you play. If this is not checked, the number after the original beatmap will be incremented by +1 until the existing beatmap is gone.
+
+OD HP: You can change OD and HP.
+
+offset: You can change offset.
+
+noSV: You can disable SV
+
+Do not change notes: Disables random etc.<br><br><br>
 
 == Other ==
-  
-Select from history: Once selected, you can select the beatmap from here.
-  
-Even if [Random] etc. is attached to the beatmap before conversion, it will be converted nicely.
-  
-Checkboxes in the history list will react even if you click other columns.
-  
-LRandom's L is a shortened version of Limited because it is long and inconvenient.
-  
 
+Select from history: Once selected, you can select the beatmap from here.
+
+Even if [Random] etc. is attached to the beatmap before conversion, it will be converted nicely.
+
+Checkboxes in the history list will react even if you click other columns.
+
+LRandom's L is a shortened version of Limited because it is long and inconvenient.<br><br><br>
 
 == Memo ==
-  
-Gemini is too convenient :D
-  
+
+Gemini is too convenient :3
+
 If you have any desired functions or bugs, please feel free to contact me at: https://osu.ppy.sh/users/23064382
-  
+<br>

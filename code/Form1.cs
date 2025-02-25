@@ -863,7 +863,7 @@ namespace taiko
 
             if(RadioButtonPicOn.Checked)
             {
-                System.Drawing.Image noimage = System.Drawing.Image.FromFile(@"no image.png");
+                System.Drawing.Image noimage = System.Drawing.Image.FromFile(@"Images\no image.png");
                 PictureBox.Image = noimage;
             }
 
@@ -1279,7 +1279,7 @@ namespace taiko
                 }
                 catch
                 {
-                    System.Drawing.Image noimage = System.Drawing.Image.FromFile(@"no image.png");
+                    System.Drawing.Image noimage = System.Drawing.Image.FromFile(@"Images\no image.png");
                     PictureBox.Image = noimage;
                 }
             }
