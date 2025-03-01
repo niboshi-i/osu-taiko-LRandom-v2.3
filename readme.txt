@@ -1,20 +1,22 @@
-<br>
+osu!taiko LRandom v2.8.2 readme (日本語/English)
 
-![noimages](Images/readmepic.png)<br><br>
 
-osu!taiko LRandom v2.8.2 readme (日本語/English)<br><br><br>
 
 ～概要～
 
-このツールでは、osu!taikoのノーツを本家のオプション"でたらめ"や、でたらめの親戚"制限付きでたらめ"に変換することができます                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+このツールでは、osu!taikoのノーツを本家のオプション"でたらめ"や、でたらめの親戚"制限付きでたらめ"に変換することができます
 
-制限付きでたらめとは・・・同じ色のノーツが連続する回数を、指定した数の中からランダムで選びます<br><br><br>
+制限付きでたらめとは・・・同じ色のノーツが連続する回数を、指定した数の中からランダムで選びます
+
+
 
 ～使い方～
 
 １、osuの選曲画面にいる状態で"読み込む"を押すか、.osuファイルをこのソフトにドラッグ＆ドロップしてください
 
-２、好みの設定に変更して"実行"を押してください、選んだ譜面があるフォルダーに自動で追加されます<br><br><br>
+２、好みの設定に変更して"実行"を押してください、選んだ譜面があるフォルダーに自動で追加されます
+
+
 
 ～設定～
 
@@ -37,7 +39,9 @@ osu!taiko LRandom v2.8.2 readme (日本語/English)<br><br><br>
 
 "noSV"　SVを無効化できます
 
-"ノーツを変えない"　でたらめ系の設定を無効にします<br><br><br>
+"ノーツを変えない"　でたらめ系の設定を無効にします
+
+
 
 ～その他～
 
@@ -47,35 +51,45 @@ osu!taiko LRandom v2.8.2 readme (日本語/English)<br><br><br>
 
 履歴の一覧にあるチェックボックスは他の列をクリックしても反応します
 
-LRandomのLはLimitedが長くて不便なので短くしたものです<br><br><br>
+LRandomのLはLimitedが長くて不便なので短くしたものです
+
+
 
 ～今後の予定～
 
 マルチで簡単にでたらめ譜面を投げられるようにしたい
 
-メモリの負荷を軽くしたい<br><br><br>
-  
+メモリの負荷を軽くしたい
+
+
+
 ～メモ～
 
 欲しい機能やバグなどありましたら
 https://osu.ppy.sh/users/23064382
-までお気軽にご連絡ください！！<br><br>
+までお気軽にご連絡ください！！
 
-ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー<br>
-osu!taiko LRandom v2.8 README (English Translation)<br><br><br>
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+osu!taiko LRandom v2.8 README (English Translation)
+
+
 
 == Overview ==
-  
+
 This tool allows you to convert osu!taiko notes to the official "Random" option or its relative, "Limited Random".
 
 What is Limited Random?
-Limited Random allows you to randomly select the number of consecutive notes of the same color from a specified range.<br><br><br>
+Limited Random allows you to randomly select the number of consecutive notes of the same color from a specified range.
+
+
 
 == How to use ==
-  
+
 1.While on the song selection screen in osu!, press "Load" or Drag and drop the .osu file into this software
 
-2.Change the settings to your liking and press "Execute". The converted beatmap will be automatically added to the folder where the selected beatmap is located.<br><br><br>
+2.Change the settings to your liking and press "Execute". The converted beatmap will be automatically added to the folder where the selected beatmap is located.
+
+
 
 == Settings ==
 
@@ -98,7 +112,9 @@ offset: You can change offset.
 
 noSV: You can disable SV
 
-Do not change notes: Disables random etc.<br><br><br>
+Do not change notes: Disables random etc.
+
+
 
 == Other ==
 
@@ -108,9 +124,12 @@ Even if [Random] etc. is attached to the beatmap before conversion, it will be c
 
 Checkboxes in the history list will react even if you click other columns.
 
-LRandom's L is a shortened version of Limited because it is long and inconvenient.<br><br><br>
+LRandom's L is a shortened version of Limited because it is long and inconvenient.
+
+
 
 == Memo ==
 
-If you have any desired functions or bugs, please feel free to contact me at: https://osu.ppy.sh/users/23064382
-<br>
+If you have any desired functions or bugs, please feel free to contact me at:
+https://osu.ppy.sh/users/23064382
+

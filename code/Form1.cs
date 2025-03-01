@@ -34,9 +34,21 @@ namespace taiko
             InitializeComponent();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+                return cp;
+            }
+        }
+
 
         private void ButtonRead_Click(object sender, EventArgs e) // 読み込む
         {
+            LabelReport.Text = "";
+
             Process[] processes = Process.GetProcessesByName("osu!");
 
             // osu! が起動しているか確認
@@ -91,14 +103,22 @@ namespace taiko
 
                 _History = json;
 
-                ComboBoxFromHistory.DataSource = dataTable;
-                ComboBoxFromHistory.DisplayMember = "name";
-                ComboBoxFromHistory.ValueMember = "path";
+                SetConboBoxFromHistory(dataTable);
 
             }
             else // 履歴がすでにある場合はデータテーブルに変換してコンボボックスに表示
             {
                 DataTable dataTable = MakeDataTable(log);
+
+                // 履歴で既に同じパスのファイルがある場合、元の履歴を削除してから追加
+                var rowsToDelete = dataTable.AsEnumerable()
+                    .Where(row => row.Field<string>("path") == filePath)
+                    .ToList();
+
+                foreach (var row in rowsToDelete)
+                {
+                    dataTable.Rows.Remove(row);
+                }
 
                 dataTable.Rows.Add(dataTable.NewRow()["path"] = filePath, dataTable.NewRow()["name"] = fileName);
 
@@ -106,9 +126,7 @@ namespace taiko
 
                 _History = json;
 
-                ComboBoxFromHistory.DataSource = dataTable;
-                ComboBoxFromHistory.DisplayMember = "name";
-                ComboBoxFromHistory.ValueMember = "path";
+                SetConboBoxFromHistory(dataTable);
             }
         }
 
@@ -123,7 +141,7 @@ namespace taiko
 
 
             // 譜面が選択されていなければエラー
-            if(_filePath == null)
+            if (_filePath == null)
             {
                 MessageBox.Show($"{GetWord("54")}", "", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 LabelReport.Text = "";
@@ -399,7 +417,7 @@ namespace taiko
                 {
                     newoffset = int.Parse(NumericUpDownOffset.Value.ToString()) > 0 ? "[offset+" + offsetText.ToString() + "]"
                                                                                     : "[offset" + offsetText.ToString() + "]";
-                }                
+                }
             }
             else
             {
@@ -436,10 +454,10 @@ namespace taiko
                     bool issv = double.Parse(values[1]) < 0;
 
                     if (issv)
-                    {        
+                    {
                         values.SetValue("-100", 1);
                         string nosv = string.Join(",", values.Select(s => s.ToString()));
-                        timingonly[i] = nosv;                        
+                        timingonly[i] = nosv;
                     }
                 }
 
@@ -604,7 +622,7 @@ namespace taiko
             // 制限付きでたらめの場合1ノーツ目の色をまとめて決める
             List<string> colors1 = new List<string>();
             if (RadioButtonLR.Checked)
-            { 
+            {
                 using (RandomNumberGenerator rngColor = RandomNumberGenerator.Create())
                 {
                     byte[] randomNumberColor = new byte[1];
@@ -675,7 +693,7 @@ namespace taiko
                         {
                             // ルールの数字から必要な長さのintのリストを作る
                             List<int> box = new List<int>();
-                            
+
                             using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
                             {
                                 byte[] bytes = new byte[4]; // int は 4 バイト
@@ -688,7 +706,7 @@ namespace taiko
                                     int num = int.Parse(splrule[index]);
                                     box.Add(num);
                                     total += num;
-                                    if(total > noteonly.Length)
+                                    if (total > noteonly.Length)
                                     {
                                         break;
                                     }
@@ -799,7 +817,7 @@ namespace taiko
         }
 
 
-        
+
 
 
         private void Form1_Load(object sender, EventArgs e) // ロード時の処理
@@ -861,7 +879,7 @@ namespace taiko
                       MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
 
-            if(RadioButtonPicOn.Checked)
+            if (RadioButtonPicOn.Checked)
             {
                 System.Drawing.Image noimage = System.Drawing.Image.FromFile(@"Images\no image.png");
                 PictureBox.Image = noimage;
@@ -876,18 +894,71 @@ namespace taiko
             // 履歴があるか
             string log = _History;
 
+            // 何かの拍子で空白になっている場合は[]を入れる
+            if (log == "")
+            {
+                log = "[]";
+            }
+
             // ある場合は、コンボボックスに表示
             if (log != "[]")
             {
                 DataTable dataTable = MakeDataTable(log);
 
-                DataTableSet(dataTable);
+                SetConboBoxFromHistory(dataTable);
+            }
+        }
+
+
+        private void TabControl_Selecting(object sender, TabControlCancelEventArgs e) // タブ移動時
+        {
+            if (e.TabPage == TabPage2) // 履歴ページに移動する場合
+            {
+                Historytabselect();
+            }
+        }
+
+        private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TabControl.SelectedTab == TabPage1) // メインメニューに移動する場合
+            {
+                DataGridView.DataSource = null;
+
+                if (DataGridView.Columns.Contains("chkDelete"))
+                {
+                    DataGridView.Columns.Remove("chkDelete");
+                }
+
+                string log = _History;
+
+                if (log != "[]")
+                {
+                    DataTable dataTable = MakeDataTable(log);
+
+                    SetConboBoxFromHistory(dataTable);
+                }
+            }
+            else if (TabControl.SelectedTab == TabPage2) // 履歴ページに移動する場合の続き
+            {
+                DataGridView.ClearSelection();
+            }
+            else if (TabControl.SelectedTab == TabPage3) // 詳細設定に移動する場合
+            {
+                ComboBoxFromHistory.DataSource = null;
+                DataGridView.DataSource = null;
+
+                if (DataGridView.Columns.Contains("chkDelete"))
+                {
+                    DataGridView.Columns.Remove("chkDelete");
+                }
             }
         }
 
 
         private void ComboBoxFromHistory_SelectionChangeCommitted(object sender, EventArgs e) // 履歴から選ばれたとき
         {
+            LabelReport.Text = "";
+
             if (ComboBoxFromHistory.SelectedItem is DataRowView selectedRow) // DataRowView型であることを確認
             {
                 string name = selectedRow["name"].ToString();
@@ -907,7 +978,7 @@ namespace taiko
                     Process[] processes = Process.GetProcessesByName("osu!");
 
                     if (processes.Length != 0)
-                    {                     
+                    {
                         string osuPath = Path.GetDirectoryName(processes[0].MainModule.FileName);
                         SetSongsPath(osuPath);
                         processes[0].Dispose();
@@ -922,8 +993,6 @@ namespace taiko
                         PictureBox.Image = null;
                     }
                 }
-
-                LabelReport.Text = "";
             }
         }
 
@@ -988,20 +1057,6 @@ namespace taiko
         }
 
 
-        private void TabControl_Click(object sender, EventArgs e) // タブ移動時
-        {
-            // 履歴を取得
-            string log = _History;
-
-            // ある場合は、コンボボックスに表示
-            if (log != "[]")
-            {
-                DataTable dataTable = MakeDataTable(log);
-
-                DataTableSet(dataTable);
-            }
-        }
-
         private void DataGridView_CellClick(object sender, DataGridViewCellEventArgs e) // 履歴の表でクリックしたときに削除列にチェック
         {
             if (e.ColumnIndex >= 0 && DataGridView.Columns[e.ColumnIndex].Name != "chkDelete" && e.RowIndex >= 0)
@@ -1048,37 +1103,16 @@ namespace taiko
             // フォーム上のテキストを書き換える
             LanguageChange();
 
-
-            //表の列名は変えられないので、いったんデータを保存して元のデータごと表を削除、そのあと表を作り直す
-            string backup = _History;
-
-            if (DataGridView.DataSource != null)
-            {
-                DataGridView.DataSource = null;
-            }
+            // 表のチェックボックス列を削除
             if (DataGridView.Columns.Contains("chkDelete"))
             {
-                // チェックボックス列を削除
                 DataGridView.Columns.Remove("chkDelete");
-            }
-
-            // 保存したデータ
-            _History = backup;
-
-            // 履歴があるか
-            string log = _History;
-
-            // ある場合は、コンボボックスに表示
-            if (log != "[]")
-            {
-                DataTable dataTable = MakeDataTable(log);
-
-                DataTableSet(dataTable);
-
             }
 
             // 選んだ言語をconjigに保存
             ConfigSave("Language", selectlang);
+
+            TabControl.Refresh();
         }
 
 
@@ -1125,7 +1159,7 @@ namespace taiko
                 TextBoxSelectedMap.Text = fileName;
 
                 // フィールドにもセット
-                 _filePath = filePath;
+                _filePath = filePath;
 
                 string beforfilePath = filePath.Substring(0, filePath.LastIndexOf('\\'));
                 _beforfilePath = beforfilePath;
@@ -1173,27 +1207,66 @@ namespace taiko
 
                     _History = json;
 
-                    DataTableSet(dataTable);
+                    if (TabControl.SelectedTab == TabPage1)
+                    {
+                        SetConboBoxFromHistory(dataTable);
+                    }
+                    else if (TabControl.SelectedTab == TabPage2)
+                    {
 
+                        SetDataGridView(dataTable);
+
+                        DataGridView.ClearSelection();
+                    }
                 }
-                else // 履歴がすでにある場合はデータテーブルに変換してコンボボックスに表示
+                else // 履歴がすでにある場合は必要ならコンボボックスか履歴の表を表示
                 {
-                    DataTable dataTable = MakeDataTable(log);
+                    if (TabControl.SelectedTab == TabPage1) // メインメニューにいたらコンボボックスを更新
+                    {
+                        DataTable dataTable = MakeDataTable(log);
 
-                    dataTable.Rows.Add(dataTable.NewRow()["path"] = filePath, dataTable.NewRow()["name"] = fileName);
+                        // 履歴で既に同じパスのファイルがある場合、元の履歴を削除してから追加
+                        var rowsToDelete = dataTable.AsEnumerable()
+                            .Where(row => row.Field<string>("path") == filePath)
+                            .ToList();
 
-                    string json = JsonConvert.SerializeObject(dataTable);
+                        foreach (var row in rowsToDelete)
+                        {
+                            dataTable.Rows.Remove(row);
+                        }
 
-                    _History = json;
+                        dataTable.Rows.Add(dataTable.NewRow()["path"] = filePath, dataTable.NewRow()["name"] = fileName);
 
-                    ComboBoxFromHistory.DataSource = dataTable;
-                    ComboBoxFromHistory.DisplayMember = "name";
-                    ComboBoxFromHistory.ValueMember = "path";
-                }
+                        string json = JsonConvert.SerializeObject(dataTable);
 
-                if (TabControl.SelectedTab == TabPage2) // 履歴でドロップしていたらコンボボックスと表を更新
-                {
-                    TabControl_Click(sender, e);
+                        _History = json;
+
+                        SetConboBoxFromHistory(dataTable);
+                    }
+                    else if (TabControl.SelectedTab == TabPage2) // 履歴にいたら表を更新
+                    {
+                        DataTable dataTable = MakeDataTable(log);
+
+                        // 履歴で既に同じパスのファイルがある場合、元の履歴を削除してから追加
+                        var rowsToDelete = dataTable.AsEnumerable()
+                            .Where(row => row.Field<string>("path") == filePath)
+                            .ToList();
+
+                        foreach (var row in rowsToDelete)
+                        {
+                            dataTable.Rows.Remove(row);
+                        }
+
+                        dataTable.Rows.Add(dataTable.NewRow()["path"] = filePath, dataTable.NewRow()["name"] = fileName);
+
+                        string json = JsonConvert.SerializeObject(dataTable);
+
+                        _History = json;
+
+                        DataGridView.DataSource = dataTable;
+
+                        DataGridView.ClearSelection();
+                    }
                 }
             }
         }
@@ -1366,22 +1439,18 @@ namespace taiko
         }
 
 
-        private void DataTableSet(DataTable dt)
+        private void SetConboBoxFromHistory(DataTable dataTable)
         {
-            // 履歴のコンボボックス更新
-            ComboBoxFromHistory.DataSource = dt;
+            ComboBoxFromHistory.DataSource = dataTable;
             ComboBoxFromHistory.DisplayMember = "name";
             ComboBoxFromHistory.ValueMember = "path";
+        }
 
-            // 履歴の表がない場合は作る
-            if (DataGridView.Columns["path"]?.Width != 75) // 表がないか
+
+        private void SetDataGridView(DataTable dt)
+        {
+            if (DataGridView.Columns["path"]?.Width != 65) // 表がない場合
             {
-                // チェックボックス列が残っていたら削除
-                if (DataGridView.Columns.Contains("chkDelete"))
-                {
-                    DataGridView.Columns.Remove("chkDelete");
-                }
-
                 DataGridView.DataSource = dt;
                 DataGridView.Columns["name"].Width = 470;
                 DataGridView.Columns["name"].HeaderText = GetWord("20");
@@ -1402,6 +1471,10 @@ namespace taiko
                 DataGridView.Columns[2].ReadOnly = true;
                 DataGridView.AllowUserToAddRows = false;
                 DataGridView.RowHeadersVisible = false;
+            }
+            else
+            {
+                DataGridView.DataSource = dt; // 表がある場合(すべての履歴を削除した時だけ)
             }
         }
 
@@ -1498,5 +1571,27 @@ namespace taiko
                 pair.Key.Text = GetWord(pair.Value);
             }
         }
+
+
+        private void Historytabselect()
+        {
+            string log = _History;
+
+            if (log != "[]")
+            {
+                DataTable dataTable = MakeDataTable(log);
+
+                SetDataGridView(dataTable);
+            }
+            else
+            {
+                if (DataGridView.Columns.Contains("chkDelete"))
+                {
+                    DataGridView.Columns.Remove("chkDelete");
+                }
+            }
+
+            ComboBoxFromHistory.DataSource = null;
+        }        
     }
 }

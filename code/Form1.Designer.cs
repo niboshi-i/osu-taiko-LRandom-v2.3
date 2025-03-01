@@ -239,7 +239,8 @@
             this.TabControl.SelectedIndex = 0;
             this.TabControl.Size = new System.Drawing.Size(634, 392);
             this.TabControl.TabIndex = 28;
-            this.TabControl.Click += new System.EventHandler(this.TabControl_Click);
+            this.TabControl.SelectedIndexChanged += new System.EventHandler(this.TabControl_SelectedIndexChanged);
+            this.TabControl.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.TabControl_Selecting);
             this.TabControl.DragDrop += new System.Windows.Forms.DragEventHandler(this.TabControl_DragDrop);
             this.TabControl.DragEnter += new System.Windows.Forms.DragEventHandler(this.TabControl_DragEnter);
             // 
@@ -651,7 +652,7 @@
             // 
             this.ComboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxLanguage.FormattingEnabled = true;
-            this.ComboBoxLanguage.Location = new System.Drawing.Point(181, 29);
+            this.ComboBoxLanguage.Location = new System.Drawing.Point(191, 29);
             this.ComboBoxLanguage.Name = "ComboBoxLanguage";
             this.ComboBoxLanguage.Size = new System.Drawing.Size(178, 32);
             this.ComboBoxLanguage.TabIndex = 0;
@@ -667,7 +668,7 @@
             this.MaximumSize = new System.Drawing.Size(650, 431);
             this.MinimumSize = new System.Drawing.Size(650, 431);
             this.Name = "Form1";
-            this.Text = "osu!taiko LRandom v2.8.1";
+            this.Text = "osu!taiko LRandom v2.8.2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.TabControl.ResumeLayout(false);
